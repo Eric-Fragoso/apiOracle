@@ -1,18 +1,18 @@
 const database = require('../services/database.js');
  
 const baseQuery = 
-  `select  f.FAGR_IN_CODIGO "id",
-f.FAGR_ST_NOME "nome"
-from mgagr.AGR_FAGRICOLA `;
+  `select  f.FAGR_IN_CODIGO AS COD_FORNECEDOR,
+  f.FAGR_ST_NOME AS FORNECEDOR
+  from mgagr.AGR_FAGRICOLA f ORDER BY FORNECEDOR ASC `;
  
 async function find(context) {
   let query = baseQuery;
   const binds = {};
  
   if (context.id) {
-    binds.f.FAGR_IN_CODIGO = context.id;
+    binds.COD_FORNECEDOR = context.id;
  
-    query += `\nwhere f.FAGR_IN_CODIGO = :f.FAGR_IN_CODIGO`;
+    query += `\nwhere COD_FORNECEDOR = :COD_FORNECEDOR`;
   }
  
   const result = await database.simpleExecute(query, binds);
