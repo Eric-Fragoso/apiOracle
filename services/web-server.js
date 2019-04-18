@@ -14,7 +14,7 @@ function initialize(){
 
         app.use(morgan('combined'));
 
-        app.get('/api',router);
+        app.use('/api',router);
         app.get('/', async (req, res) => {
             const result = await database.simpleExecute(`select  f.FAGR_IN_CODIGO AS COD_FORNECEDOR,
             f.FAGR_ST_NOME AS FORNECEDOR
