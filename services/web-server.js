@@ -13,7 +13,7 @@ function initialize(){
 
         app.use(morgan('combined'));
 
-        app.get('/', (req, res)=>{
+        app.get('/', async (req, res)=>{
             const result = await database.simpleExecute(`select  f.FAGR_IN_CODIGO AS COD_FORNECEDOR,
             f.FAGR_ST_NOME AS FORNECEDOR
             from mgagr.AGR_FAGRICOLA f ORDER BY FORNECEDOR ASC`);
