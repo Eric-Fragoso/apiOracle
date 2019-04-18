@@ -4,7 +4,7 @@ const baseQuery =
   `select  f.FAGR_IN_CODIGO AS COD_FORNECEDOR,
   f.FAGR_ST_NOME AS FORNECEDOR
   from mgagr.AGR_FAGRICOLA f ORDER BY FORNECEDOR ASC `;
- 
+  console.log("executou");
 async function find(context) {
   let query = baseQuery;
   const binds = {};
