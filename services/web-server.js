@@ -2,7 +2,7 @@ const http = require('http');
 const express =require('express');
 const webServerConfig = require('../config/web-server.js');
 const morgan = require('morgan');
-const database = require('./databse.js');
+const router =require('./router.js');
 
 let httpServer;
 
@@ -13,18 +13,7 @@ function initialize(){
 
         app.use(morgan('combined'));
 
-        app.get('/', async (req, res)=>{
-            const result = await database.simpleExecute(`select  f.FAGR_IN_CODIGO AS COD_FORNECEDOR,
-            f.FAGR_ST_NOME AS FORNECEDOR
-            from mgagr.AGR_FAGRICOLA f ORDER BY FORNECEDOR ASC`);
-            //const user = result.rows[0].USER;
-            //const date = result.rows[0].SYSTIMESTAMP;
-        
-            //res.end(`DB user: ${user}\nDate: ${date}`);
-            const tudo = result.rows;
-            res.end(`Lista de fornecedores: ${tudo}`);
-            console.log(result.rows);
-        });
+        app.get('/api',router);
 
         httpServer.listen(webServerConfig.port)
         .on('listening',()=>{
