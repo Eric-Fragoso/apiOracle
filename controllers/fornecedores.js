@@ -10,11 +10,14 @@ async function get(req, res, next) {
  
     if (req.params.id) {
       if (rows.length === 1) {
+        console.log("erro 1");
         res.status(200).json(rows[0]);
       } else {
+        console.log("erro 2");
         res.status(404).end();
       }
     } else {
+      console.log("sucesso");
       res.status(200).json(rows);
     }
   } catch (err) {
