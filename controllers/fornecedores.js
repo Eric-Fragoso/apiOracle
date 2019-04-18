@@ -6,7 +6,8 @@ async function get(req, res, next) {
     console.log("entrou no try");
     const context = {};
  
-    context.id = parseInt(req.params.id, 10);
+    //context.id = parseInt(req.params.id, 10);
+    context.id = req.params.id;
  
     const rows = await fornecedores.find(context);
  
