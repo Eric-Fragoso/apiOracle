@@ -1,8 +1,8 @@
 const express = require('express');
 const router = new express.Router();
-const controles = require('../controllers/controles.js');
+const fornecedores = require('../controllers/fornecedores.js');
  
-router.route('/controles/:id?')
-  .get(controles.get);
+router.route('/fornecedores/:id?')
+  .get(fornecedores.get);
  
 module.exports = router;
