@@ -9,7 +9,7 @@ async function startup(){
     console.log('aplicação iniciada');
 
     try {
-        console.log('Initializing database module');        
+        console.log('Initializando modulo do OracleDB');        
         await database.initialize(); 
     } catch (err) {
         console.error(err);        
@@ -45,6 +45,16 @@ async function shutdown(e){
     }else{
         process.exit(0);
     }
+
+    try {
+        console.log('Fechando Banco de Dados');
+     
+        await database.close(); 
+      } catch (err) {
+        console.log('Erro Econtrado', e);
+     
+        err = err || e;
+      }
 }
 
 process.on('SIGTERM', ()=>{
