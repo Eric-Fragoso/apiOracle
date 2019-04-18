@@ -6,10 +6,11 @@ const baseQuery =
   from mgagr.AGR_FAGRICOLA f ORDER BY FORNECEDOR ASC `;
   
 async function find(context) {
-  console.log("executou");
+  
   let query = baseQuery;
   const binds = {};
  
+  console.log(context.id);
   if (context.id) {
     binds.COD_FORNECEDOR = context.id;
  
