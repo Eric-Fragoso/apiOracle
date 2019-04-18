@@ -1,7 +1,9 @@
 const fornecedores = require('../db_apis/fornecedores.js');
  
 async function get(req, res, next) {
+  console.log("entrou na função");
   try {
+    console.log("entrou no try");
     const context = {};
  
     context.id = parseInt(req.params.id, 10);
