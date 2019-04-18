@@ -1,4 +1,4 @@
-const fornecedores = require('../db_apis/fornecedores.js/index.js');
+const fornecedores = require('../db_apis/fornecedores.js');
  
 async function get(req, res, next) {
   try {
