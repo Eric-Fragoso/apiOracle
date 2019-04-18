@@ -15,7 +15,7 @@ function initialize(){
         app.use(morgan('combined'));
 
         app.get('/api',router);
-        /*app.get('/', async (req, res) => {
+        app.get('/', async (req, res) => {
             const result = await database.simpleExecute(`select  f.FAGR_IN_CODIGO AS COD_FORNECEDOR,
             f.FAGR_ST_NOME AS FORNECEDOR
             from mgagr.AGR_FAGRICOLA f ORDER BY FORNECEDOR ASC`);
@@ -24,7 +24,7 @@ function initialize(){
             const total = result.rows;
        
             res.end(`resultado: ${total}`);
-          });*/
+          });
 
         httpServer.listen(webServerConfig.port)
         .on('listening',()=>{
