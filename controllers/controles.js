@@ -8,7 +8,8 @@ async function get(req, res, next) {
     context.id = req.params.id;
  
     const rows = await controles.find(context);
- 
+    console.log("checando params");
+    console.log(req.params.id);
     if (req.params.id) {
       if (rows.length === 1) {
         res.status(200).json(rows[0]);
