@@ -12,9 +12,9 @@ async function find(context) {
  
   console.log(context.id);
   if (context.id) {
-    binds.FAGR_IN_CODIGO = context.id;
+    binds.COD_FORNECEDOR = context.id;
  
-    query += `\nwhere FAGR_IN_CODIGO = :FAGR_IN_CODIGO`;
+    query += `\nwhere COD_FORNECEDOR = :f.FAGR_IN_CODIGO`;
   }
  
   console.log(query);
