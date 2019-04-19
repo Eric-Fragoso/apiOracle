@@ -11,8 +11,8 @@ async function get(req, res, next) {
     console.log("checando rows");
     console.log(rows.length);
     if (req.params.id) {
-      if (rows.length === 1) {
-        res.status(200).json(rows[0]);
+      if (rows.length != 0) {
+        res.status(200).json(rows);
       } else {
         res.status(404).end();
       }
