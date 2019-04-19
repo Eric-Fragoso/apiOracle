@@ -14,7 +14,7 @@ async function find(context) {
   if (context.id) {
     binds.COD_FORNECEDOR = context.id;
  
-    query += `\n where COD_FORNECEDOR = :81`;
+    query += `\n where f.FAGR_IN_CODIGO = :COD_FORNECEDOR`;
   }
  
   console.log(query);
