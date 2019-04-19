@@ -14,7 +14,7 @@ async function find(context) {
   if (context.id) {
     binds.COD_FORNECEDOR = context.id;
  
-    query += `\nwhere COD_FORNECEDOR = :context.id`;
+    query += `\nwhere COD_FORNECEDOR = :COD_FORNECEDOR`;
   }
  
   console.log(query);
