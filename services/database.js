@@ -10,7 +10,7 @@ async function close() {
 }
 
 function simpleExecute(statement, binds = [], opts = {}) {
-  console.log("exceutando");
+  
     return new Promise(async (resolve, reject) => {
       let conn;
    
@@ -21,9 +21,10 @@ function simpleExecute(statement, binds = [], opts = {}) {
         conn = await oracledb.getConnection();
    
         const result = await conn.execute(statement, binds, opts);
-   
+        console.log("resolvendo");
         resolve(result);
       } catch (err) {
+        console.log("rejeitando");
         reject(err);
       } finally {
         if (conn) { 
