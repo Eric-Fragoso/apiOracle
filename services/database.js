@@ -10,6 +10,7 @@ async function close() {
 }
 
 function simpleExecute(statement, binds = [], opts = {}) {
+  console.log("exceutando");
     return new Promise(async (resolve, reject) => {
       let conn;
    
