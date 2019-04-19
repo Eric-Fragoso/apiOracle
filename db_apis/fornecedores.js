@@ -3,7 +3,7 @@ const database = require('../services/database.js');
 const baseQuery = 
   `select  f.FAGR_IN_CODIGO AS COD_FORNECEDOR,
   f.FAGR_ST_NOME AS FORNECEDOR
-  from mgagr.AGR_FAGRICOLA `;
+  from mgagr.AGR_FAGRICOLA f`;
   
 async function find(context) {
   
@@ -14,7 +14,7 @@ async function find(context) {
   if (context.id) {
     binds.COD_FORNECEDOR = context.id;
  
-    query += `\nwhere COD_FORNECEDOR = :COD_FORNECEDOR`;
+    query += `\n where COD_FORNECEDOR = :COD_FORNECEDOR`;
   }
  
   console.log(query);
