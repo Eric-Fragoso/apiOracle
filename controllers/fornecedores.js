@@ -4,8 +4,8 @@ async function get(req, res, next) {
   try {
     const context = {};
  
-    //context.id = parseInt(req.params.id, 10);
-    context.id = req.params.id;
+    context.id = parseInt(req.params.id, 10);
+    //context.id = req.params.id;
  
     const rows = await fornecedores.find(context);
  
