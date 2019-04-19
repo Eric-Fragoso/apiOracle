@@ -9,7 +9,7 @@ async function get(req, res, next) {
  
     const rows = await controles.find(context);
     console.log("checando rows");
-    console.log(rows);
+    console.log(rows.length);
     if (req.params.id) {
       if (rows.length === 1) {
         res.status(200).json(rows[0]);
