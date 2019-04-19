@@ -3,13 +3,14 @@ const express =require('express');
 const webServerConfig = require('../config/web-server.js');
 const morgan = require('morgan');
 const router =require('./router.js');
-const database = require('./database.js');
+const cors = require('cors');
 
 let httpServer;
 
 function initialize(){
     return new Promise((resolve, reject)=>{
         const app = express();
+        app.use(cors());
         httpServer = http.createServer(app);
 
         app.use(morgan('combined'));
