@@ -62,9 +62,10 @@ async function importa(context) {
   let query = baseQuery;
   const binds = {};
  
+  console.log("dados do context em api");
+  console.log(context);  
   
   if (context.id) {
-    console.log(context.id);
     binds.CONTROLE = context.id;
     binds.ANO = context.ano;
     binds.CULTURA = context.cultura;
