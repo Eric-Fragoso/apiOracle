@@ -61,8 +61,8 @@ async function importa(context) {
  
    if (context.id) {
     binds.CONTROLE = context.id;
-    binds.ANO = context.ano;
-    binds.CULTURA = context.cultura;
+    //binds.ANO = context.ano;
+    //binds.CULTURA = context.cultura;
     console.log(binds);  
 
     query = `\n select vp.COD_FORNECEDOR as COD_FORNECEDOR, vp.ANO as ANO, vp.MES, to_number(to_char(to_date(vp.DATA,'DD/MM/YYYY'),'WW')) as SEMANA,
