@@ -6,6 +6,28 @@ async function get(req, res, next) {
  
     //context.id = parseInt(req.params.id, 10);
     context.id = req.params.id;
+
+    const rows = await controles.find(context);
+    if (req.params.id) {
+      if (rows.length != 0) {
+        res.status(200).json(rows);
+      } else {
+        res.status(404).end();
+      }
+    } else {
+      res.status(200).json(rows);
+    }
+  } catch (err) {
+    next(err);
+  }
+}
+
+async function importar(req, res, next) {
+  try {
+    const context = {};
+ 
+    //context.id = parseInt(req.params.id, 10);
+    context.id = req.params.id;
     context.ano = req.params.ano;
     context.cultura = req.params.cultura;
  
@@ -25,3 +47,4 @@ async function get(req, res, next) {
 }
  
 module.exports.get = get;
+module.exports.importar = importar;
