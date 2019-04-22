@@ -61,7 +61,7 @@ async function importa(context) {
  
    if (context.id) {
     binds.CONTROLE = context.id;
-    //binds.ANO = context.ano;
+    binds.ANO = context.ano;
     //binds.CULTURA = context.cultura;
     console.log(binds);  
 
