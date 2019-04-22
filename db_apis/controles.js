@@ -88,7 +88,7 @@ async function importa(context) {
   }
 
   const result = await database.simpleExecute(query, binds);
- 
+  console.log(query);
   return result.rows;
 }
 
