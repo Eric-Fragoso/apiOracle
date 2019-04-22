@@ -27,10 +27,7 @@ async function find(context) {
  
   
   if (context.id) {
-    console.log(context.id);
     binds.CONTROLE = context.id;
-    binds.ANO = context.ano;
-    binds.CULTURA = context.cultura;
  
     query = `\n select vp.COD_FORNECEDOR as COD_FORNECEDOR, vp.ANO as ANO, vp.MES, to_number(to_char(to_date(vp.DATA,'DD/MM/YYYY'),'WW')) as SEMANA,
     vp.DATA,decode(upper(substr(vp.SAFRA,1,1)),'M','Manga','U','Uva','C','Cacau','Outra') as CULTURA,

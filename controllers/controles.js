@@ -34,7 +34,7 @@ async function importar(req, res, next) {
     console.log("dados do context em controllers");
     console.log(context);
  
-    const rows = await controles.find(context);
+    const rows = await controles.importa(context);
     if (req.params.id) {
       if (rows.length != 0) {
         res.status(200).json(rows);
