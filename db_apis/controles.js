@@ -62,14 +62,14 @@ async function importa(context) {
    if (context.id) {
     binds.CONTROLE = context.id;
     binds.ANO = context.ano;
-    //binds.CULTURA = context.cultura;
+    binds.CULTURA = context.cultura;
     console.log(binds);  
 
     query = `\n select vp.COD_FORNECEDOR as COD_FORNECEDOR, vp.ANO as ANO, vp.MES, to_number(to_char(to_date(vp.DATA,'DD/MM/YYYY'),'WW')) as SEMANA,
     vp.DATA,decode(upper(substr(vp.SAFRA,1,1)),'M','Manga','U','Uva','C','Cacau','Outra') as CULTURA,
     vp.VARIEDADE, vp.CONTROLE as CONTROLE, vp.SAFRA, sum(vp.PESO) as VOLUME_KG                                                                                                                  
       from mgagr.agr_bi_visaoprodutivaph_dq vp
-      where vp.PROCESSO = 1 AND vp.CONTROLE = :CONTROLE AND vp.ANO = :ANO 
+      where vp.PROCESSO = 1 AND vp.CONTROLE = :CONTROLE AND vp.ANO = :ANO AND vp.SAFRA = :CULTURA 
       group by
       vp.COD_FORNECEDOR,
       vp.ANO,
