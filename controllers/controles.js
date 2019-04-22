@@ -31,9 +31,6 @@ async function importar(req, res, next) {
     context.ano = "20" + req.params.ano;
     context.cultura = req.params.cultura+req.params.ano ;
 
-    console.log("dados do context em controllers");
-    console.log(context);
- 
     const rows = await controles.importa(context);
     if (req.params.id) {
       if (rows.length != 0) {
