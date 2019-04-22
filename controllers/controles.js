@@ -6,6 +6,8 @@ async function get(req, res, next) {
  
     //context.id = parseInt(req.params.id, 10);
     context.id = req.params.id;
+    context.ano = req.params.ano;
+    context.cultura = req.params.cultura;
  
     const rows = await controles.find(context);
     if (req.params.id) {
