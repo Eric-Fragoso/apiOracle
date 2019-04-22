@@ -28,7 +28,7 @@ async function importar(req, res, next) {
  
     //context.id = parseInt(req.params.id, 10);
     context.id = req.params.id;
-    context.ano = "20" + req.params.ano;
+    context.ano = " 20" + req.params.ano;
     context.cultura = req.params.cultura+req.params.ano ;
 
     const rows = await controles.importa(context);
