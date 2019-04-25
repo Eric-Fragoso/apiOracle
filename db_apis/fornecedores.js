@@ -25,7 +25,7 @@ async function find(context) {
 
 async function comerciala(context) {
   
-  let  = baseQuery;
+  let query = baseQuery;
   const binds = {};
  
    if (context.id) {
