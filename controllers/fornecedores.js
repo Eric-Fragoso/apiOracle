@@ -46,5 +46,6 @@ async function comercial(req, res, next) {
     next(err);
   }
 }
- 
+
+module.exports.comercial = comercial;
 module.exports.get = get;
