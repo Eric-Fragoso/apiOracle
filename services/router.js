@@ -12,4 +12,7 @@ router.route(`/controles/:id?`)
 router.route(`/controles/:id?/:ano?/:cultura?`)
   .get(controles.importar);
 
+router.route(`/controles/fornecedor/:id?`)
+  .get(controles.fornecedor);
+
 module.exports = router;
