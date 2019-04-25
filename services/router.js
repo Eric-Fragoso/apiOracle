@@ -15,4 +15,8 @@ router.route(`/controles/:id?/:ano?/:cultura?`)
 router.route(`/fornecedor/:id?`)
   .get(controles.fornecedor);
 
+router.route(`/comercial/:id?`)
+  .get(fornecedores.comercial);
+
+
 module.exports = router;

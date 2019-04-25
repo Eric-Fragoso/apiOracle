@@ -22,5 +22,23 @@ async function find(context) {
  
   return result.rows;
 }
+
+async function comercial(context) {
+  
+  let query = baseQuery;
+  const binds = {};
+ 
+   if (context.id) {
+    binds.CONTROLE = context.id;
+
+    console.log(binds);  
+
+    query = `\n select * from mgagr.agr_bi_visaocomercial_dq`;
+  }
+
+  const result = await database.simpleExecute(query, binds);
+  return result.rows;
+}
  
 module.exports.find = find;
+module.exports.comercial = comercial;
