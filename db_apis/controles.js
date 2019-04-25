@@ -99,9 +99,9 @@ async function fornecedor(context) {
 
     query = `\n select vp.COD_FORNECEDOR as COD_FORNECEDOR, vp.ANO as ANO, vp.MES, to_number(to_char(to_date(vp.DATA,'DD/MM/YYYY'),'WW')) as SEMANA,
     vp.DATA,decode(upper(substr(vp.SAFRA,1,1)),'M','Manga','U','Uva','C','Cacau','Outra') as CULTURA,
-    vp.VARIEDADE, vp.CONTROLE as CONTROLE, vp.SAFRA, sum(vp.PESO) as VOLUME_KG                                                                                                                  
+    vp.VARIEDADE, vp.CONTROLE as CONTROLE, vp.SAFRA, sum(vp.PESO) as VOLUME_KG,  vp.PROCESSO                                                                                                                  
       from mgagr.agr_bi_visaoprodutivaph_dq vp
-      where vp.PROCESSO = 1 AND vp.COD_FORNECEDOR = :FORNECEDOR
+      where vp.COD_FORNECEDOR = :FORNECEDOR
       group by
       vp.COD_FORNECEDOR,
       vp.ANO,
@@ -113,7 +113,8 @@ async function fornecedor(context) {
                                       ,'C','Cacau','Outra'),
       vp.VARIEDADE,
       vp.CONTROLE,
-      vp.SAFRA
+      vp.SAFRA,
+      vp.PROCESSO
       order by vp.DATA`;
   }
 
