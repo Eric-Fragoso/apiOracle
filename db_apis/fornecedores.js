@@ -25,13 +25,13 @@ async function find(context) {
 
 async function comercial(context) {
   
-  let query = baseQuery;
+  //let query = baseQuery;
   const binds = {};
  
    if (context.id) {
     binds.CONTROLE = context.id;
 
-    console.log(binds);  
+    console.log("executou");  
 
     query = `\n select * from mgagr.agr_bi_visaocomercial_dq`;
   }
