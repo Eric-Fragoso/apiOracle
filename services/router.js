@@ -15,7 +15,7 @@ router.route(`/controles/:id?/:ano?/:cultura?`)
 router.route(`/fornecedor/:id?`)
   .get(controles.fornecedor);
 
-router.route(`/comercial/:id?`)
+router.route(`/comercial`)
   .get(fornecedores.comercial);
 
 

@@ -31,7 +31,7 @@ async function comercial(req, res, next) {
     //context.id = parseInt(req.params.id, 10);
     context.id = req.params.id;
  
-    const rows = await fornecedores.comercial(context);
+    const rows = await fornecedores.comerciala(context);
  
     if (req.params.id) {
       if (rows.length === 1) {
