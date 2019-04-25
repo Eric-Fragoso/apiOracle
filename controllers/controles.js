@@ -70,4 +70,4 @@ async function fornecedor(req, res, next) {
  
 module.exports.get = get;
 module.exports.importar = importar;
-module.exports.fornecedor = fonecedor;
+module.exports.fornecedor = fornecedor;
