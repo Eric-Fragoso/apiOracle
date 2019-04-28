@@ -69,6 +69,7 @@ async function fornecedor(req, res, next) {
 }
 
 async function visualprodutor(req, res, next) {
+  console.log("aqui ta pegando");
   try {
     const context = {};
 

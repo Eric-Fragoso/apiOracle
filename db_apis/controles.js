@@ -124,7 +124,8 @@ async function fornecedor(context) {
 
 
 async function visualprodutor(context) {
-  
+  console.log("aqui entrou");
+
   let query = baseQuery;
   const binds = {};
  

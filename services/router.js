@@ -12,11 +12,11 @@ router.route(`/controles/:id?`)
 router.route(`/controles/:id?/:ano?/:cultura?`)
   .get(controles.importar);
 
-  router.route(`/controle/:fornecedorId?/:controleId?`)
-  .get(controles.visualprodutor);
+router.route(`/controle/:fornecedorId?/:controleId?`)
+.get(controles.visualprodutor);
 
-  router.route(`/fornecedor/:id?`)
-  .get(controles.fornecedor);
+router.route(`/fornecedor/:id?`)
+.get(controles.fornecedor);
 
 router.route(`/comercial`)
   .get(fornecedores.comercial);
