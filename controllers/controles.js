@@ -67,7 +67,30 @@ async function fornecedor(req, res, next) {
     next(err);
   }
 }
+
+async function visualprodutor(req, res, next) {
+  try {
+    const context = {};
+
+    context.fornecedorId = req.params.fornecedorId;
+    context.controleId = req.params.controleId;
+
+    const rows = await controles.visualprodutor(context);
+    if (req.params.id) {
+      if (rows.length != 0) {
+        res.status(200).json(rows);
+      } else {
+        res.status(404).end();
+      }
+    } else {
+      res.status(200).json(rows);
+    }
+  } catch (err) {
+    next(err);
+  }
+}
  
+module.exports.visualprodutor = visualprodutor;
 module.exports.get = get;
 module.exports.importar = importar;
 module.exports.fornecedor = fornecedor;
