@@ -69,15 +69,15 @@ async function fornecedor(req, res, next) {
 }
 
 async function visualprodutor(req, res, next) {
-  console.log("aqui ta pegando");
+  
   try {
     const context = {};
 
     context.fornecedorId = req.params.fornecedorId;
     context.controleId = req.params.controleId;
-
+    console.log(context.fornecedorId, context.controleId);
     const rows = await controles.visualprodutor(context);
-    if (req.params.id) {
+    if (req.params.fornecedorId) {
       if (rows.length != 0) {
         res.status(200).json(rows);
       } else {
