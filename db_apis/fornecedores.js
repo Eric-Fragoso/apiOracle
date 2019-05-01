@@ -28,6 +28,7 @@ async function comercial(context) {
   let query = baseQuery;
   const binds = {};
  
+  query = `select * from mgagr.agr_bi_visaocomercial_dq`;
    if (context.id) {
     binds.CONTROLE = context.id;
 
