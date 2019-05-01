@@ -23,7 +23,7 @@ async function find(context) {
   return result.rows;
 }
 
-async function comerciala(context) {
+async function comercial(context) {
   
   let query = baseQuery;
   const binds = {};
@@ -36,9 +36,10 @@ async function comerciala(context) {
     query = `select * from mgagr.agr_bi_visaocomercial_dq`;
   }
 
+  console.log(query);  
   const result = await database.simpleExecute(query, binds);
   return result.rows;
 }
  
 module.exports.find = find;
-module.exports.comerciala = comerciala;
+module.exports.comercial = comercial;

@@ -75,7 +75,6 @@ async function visualprodutor(req, res, next) {
 
     context.fornecedorId = req.params.fornecedorId;
     context.controleId = req.params.controleId;
-    console.log(context.fornecedorId, context.controleId);
     const rows = await controles.visualprodutor(context);
     if (req.params.fornecedorId) {
       if (rows.length != 0) {
