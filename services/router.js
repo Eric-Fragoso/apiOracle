@@ -18,8 +18,10 @@ router.route(`/controle/:fornecedorId?/:controleId?`)
 router.route(`/fornecedor/:id?`)
 .get(controles.fornecedor);
 
-router.route(`/comercial`)
-  .get(fornecedores.comercial);
+router.route(`/comerciais`)
+  .get(fornecedores.comerciais);
 
+router.route(`/comercial/:fornecedorId?/:controleId?`)
+  .get(fornecedores.comercial);
 
 module.exports = router;

@@ -23,7 +23,7 @@ async function find(context) {
   return result.rows;
 }
 
-async function comercial(context) {
+async function comerciais(context) {
   
   let query = baseQuery;
   const binds = {};
@@ -41,6 +41,25 @@ async function comercial(context) {
   const result = await database.simpleExecute(query, binds);
   return result.rows;
 }
+
+
+async function comercial(context) {
+  console.log(context.fornecedorId, context.controleId);
+
+  let query = baseQuery;
+  const binds = {};
+ 
+   if (context.fornecedorId) {
+    binds.FORNECEDOR = context.fornecedorId;
+    binds.CONTROLE = context.controleId;
+
+    query = `select * from mgagr.agr_bi_visaocomercial_dq where COD_FORNECEDOR = :FORNECEDOR and CONTROLE = :CONTROLE`;
+  }
+
+  const result = await database.simpleExecute(query, binds);
+  return result.rows;
+}
  
 module.exports.find = find;
+module.exports.comerciais = comerciais;
 module.exports.comercial = comercial;

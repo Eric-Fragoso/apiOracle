@@ -137,7 +137,7 @@ async function visualprodutor(context) {
     vp.DATA,decode(upper(substr(vp.SAFRA,1,1)),'M','Manga','U','Uva','C','Cacau','Outra') as CULTURA,
     vp.VARIEDADE, vp.CONTROLE as CONTROLE, vp.SAFRA, sum(vp.PESO) as VOLUME_KG,  vp.PROCESSO                                                                                                                  
       from mgagr.agr_bi_visaoprodutivaph_dq vp
-      where vp.COD_FORNECEDOR = :FORNECEDOR adn vp.CONTROLE = :CONTROLE
+      where vp.COD_FORNECEDOR = :FORNECEDOR and vp.CONTROLE = :CONTROLE
       group by
       vp.COD_FORNECEDOR,
       vp.ANO,
