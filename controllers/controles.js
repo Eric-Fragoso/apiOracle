@@ -97,8 +97,8 @@ async function images(req, res, next) {
  
     context = req.params.controleId;
 
-   // res.status(200).send(context + ".jpg");
-   res.status(200).send("Tentandno");
+   res.status(200).send("img/"+context + ".jpg");
+   //res.status(200).send("Tentandno");
 
 }
 
