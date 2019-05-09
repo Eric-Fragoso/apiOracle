@@ -24,4 +24,7 @@ router.route(`/comerciais`)
 router.route(`/comercial/:fornecedorId?/:controleId?`)
   .get(fornecedores.comercial);
 
+router.route(`/img/:controleId`)
+  .get(controles.images);
+
 module.exports = router;

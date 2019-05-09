@@ -89,7 +89,22 @@ async function visualprodutor(req, res, next) {
     next(err);
   }
 }
+
+
+async function images(req, res, next) {
+  try {
+    var context = "";
  
+    context = req.params.controleId;
+
+    res.status(200).send(context + ".jpg");
+    
+  } catch (err) {
+    next(err);
+  }
+}
+
+module.exports.images = images;
 module.exports.visualprodutor = visualprodutor;
 module.exports.get = get;
 module.exports.importar = importar;
