@@ -93,16 +93,13 @@ async function visualprodutor(req, res, next) {
 
 async function images(req, res, next) {
   console.log("entrou",req.params);
-  try {
     var context = "";
  
     context = req.params.controleId;
 
-    res.status(200).send(context + ".jpg");
-    
-  } catch (err) {
-    next(err);
-  }
+   // res.status(200).send(context + ".jpg");
+   res.status(200).send("Tentandno");
+
 }
 
 module.exports.images = images;
