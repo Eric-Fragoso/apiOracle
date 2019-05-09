@@ -103,7 +103,7 @@ async function images(req, res, next) {
           <img src="${path.resolve(__dirname,'..','img')}/${context}.jpg" alt="Smiley face">
    `);
    //res.status(200).send(path.resolve(path.resolve(__dirname,'..',img));
-   /home/ibacem/apiOracle/controllers
+   //home/ibacem/apiOracle/controllers
 
 }
 
