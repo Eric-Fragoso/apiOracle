@@ -1,4 +1,5 @@
 const controles = require('../db_apis/controles.js');
+const path = require('path');
  
 async function get(req, res, next) {
   try {
@@ -97,12 +98,12 @@ async function images(req, res, next) {
  
     context = req.params.controleId;
 
-   res.status(200).send(`
-          <h1>Testando ver se leva o HTML </h1>
-          <img src="img/${context}.jpg" alt="Smiley face">
-          <img src="../img/${context}.jpg" alt="Smiley face">
-   `);
-   //res.status(200).send("Tentandno");
+   //res.status(200).send(`
+   //       <h1>Testando ver se leva o HTML </h1>
+   //       <img src="img/${context}.jpg" alt="Smiley face">
+   //       <img src="../img/${context}.jpg" alt="Smiley face">
+  // `);
+   res.status(200).send(path.resolve(__dirname));
 
 }
 
