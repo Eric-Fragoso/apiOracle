@@ -98,12 +98,12 @@ async function images(req, res, next) {
  
     context = req.params.controleId;
 
-   //res.status(200).send(`
-   //       <h1>Testando ver se leva o HTML </h1>
-   //       <img src="img/${context}.jpg" alt="Smiley face">
-   //       <img src="../img/${context}.jpg" alt="Smiley face">
-  // `);
-   res.status(200).send(path.resolve(__dirname));
+   res.status(200).send(`
+          <h1>Testando ver se leva o HTML </h1>
+          <img src="${path.resolve(__dirname,'..','img')}/${context}.jpg" alt="Smiley face">
+   `);
+   //res.status(200).send(path.resolve(path.resolve(__dirname,'..',img));
+   /home/ibacem/apiOracle/controllers
 
 }
 
