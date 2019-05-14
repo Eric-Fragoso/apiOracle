@@ -10,14 +10,12 @@ async function find(context) {
   let query = baseQuery;
   const binds = {};
  
-  console.log(context.id);
   if (context.id) {
     binds.COD_FORNECEDOR = context.id;
  
     query += `\n where f.FAGR_IN_CODIGO = :COD_FORNECEDOR`;
   }
  
-  console.log(query);
   const result = await database.simpleExecute(query, binds);
  
   return result.rows;
@@ -32,19 +30,15 @@ async function comerciais(context) {
    if (context.id) {
     binds.CONTROLE = context.id;
 
-    console.log(query);  
-
     query = `select * from mgagr.agr_bi_visaocomercial_dq`;
   }
 
-  console.log(query);  
   const result = await database.simpleExecute(query, binds);
   return result.rows;
 }
 
 
 async function comercial(context) {
-  console.log(context.fornecedorId, context.controleId);
 
   let query = baseQuery;
   const binds = {};
