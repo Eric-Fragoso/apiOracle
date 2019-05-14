@@ -81,6 +81,8 @@ group by
     
   }
 
+  console.log(query);
+
   const result = await database.simpleExecute(query, binds);
   return result.rows;
 }
@@ -114,13 +116,14 @@ async function fornecedor(context) {
       order by vp.DATA`;
   }
 
+
+
   const result = await database.simpleExecute(query, binds);
   return result.rows;
 }
 
 
 async function visualprodutor(context) {
-  console.log(context.fornecedorId, context.controleId);
 
   let query = baseQuery;
   const binds = {};
