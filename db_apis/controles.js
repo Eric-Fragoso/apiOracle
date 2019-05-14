@@ -82,7 +82,7 @@ async function importa(context) {
       round(sum(case when(vp.PROCESSO = 6) then d.PESO else 0 end),2) EXPEDICAO  
 
       from mgagr.agr_bi_visaoprodutivaph_dq vp
-      where vp.PROCESSO in (1, 3.1, 3.2, 4.1, 4.12, 4.21, 4.24, 6) AND vp.CONTROLE = :CONTROLE AND vp.ANO = :ANO AND vp.SAFRA = :CULTURA 
+      where vp.CONTROLE = :CONTROLE AND vp.ANO = :ANO AND vp.SAFRA = :CULTURA 
       group by
       vp.COD_FORNECEDOR,
       vp.ANO,
