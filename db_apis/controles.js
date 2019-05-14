@@ -65,37 +65,8 @@ async function importa(context) {
     binds.CULTURA = context.cultura;
     //console.log(binds);  
 
-    query = `\n select 
-      vp.COD_FORNECEDOR as COD_FORNECEDOR, 
-      vp.ANO as ANO, 
-      vp.MES, 
-      to_number(to_char(to_date(vp.DATA,'DD/MM/YYYY'),'WW')) as SEMANA,
-      vp.DATA,
-      decode(upper(substr(vp.SAFRA,1,1)),'M','Manga','U','Uva','C','Cacau','Outra') as CULTURA,
-      vp.VARIEDADE, 
-      vp.CONTROLE as CONTROLE, 
-      vp.SAFRA, 
-      vp.PROCESSO,
-      sum(vp.PESO) as VOLUME_KG                                                                                                                  
-      from mgagr.agr_bi_visaoprodutivaph_dq vp
-      where vp.CONTROLE = :CONTROLE AND vp.ANO = :ANO AND vp.SAFRA = :CULTURA 
-      group by
-      vp.COD_FORNECEDOR,
-      vp.ANO,
-      vp.MES,
-      to_number(to_char(to_date(vp.DATA,'DD/MM/YYYY'),'WW')),
-      vp.DATA,
-      decode(upper(substr(vp.SAFRA,1,1)),'M','Manga'
-                                      ,'U','Uva'
-                                      ,'C','Cacau','Outra'),
-      vp.VARIEDADE,
-      vp.CONTROLE,
-      vp.SAFRA,
-      vp.PROCESSO
-      order by vp.DATA`;    
+    query = `\n select * from mgagr.agr_vw_saldosph_dq`;    
   }
-
-  console.log(query);
 
   const result = await database.simpleExecute(query, binds);
   console.log(result);
