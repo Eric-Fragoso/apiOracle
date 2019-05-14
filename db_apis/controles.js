@@ -72,7 +72,6 @@ async function importa(context) {
        round(sum(case when(d.COD_PROCESSO in (4.1,4.12,4.21,4.24)) then d.PESO else 0 end),2) as EMBALAMENTO,                  
        round(sum(case when(d.COD_PROCESSO = 6) then d.PESO else 0 end),2) EXPEDICAO            
        from mgagr.agr_vw_saldosph_dq d
-       where d.CONTROLE = :CONTROLE AND p.SAFRA = :CULTURA 
             
        group by
        d.SAFRA,
