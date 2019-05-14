@@ -75,10 +75,10 @@ async function importa(context) {
       vp.VARIEDADE, 
       vp.CONTROLE as CONTROLE, 
       vp.SAFRA, 
-      vp.PROCESSO, 
+      vp.PROCESSO,
       sum(vp.PESO) as VOLUME_KG                                                                                                                  
       from mgagr.agr_bi_visaoprodutivaph_dq vp
-      where vp.CONTROLE = :CONTROLE AND vp.ANO = :ANO AND vp.SAFRA = :CULTURA 
+      where vp.PROCESSO = 1 AND vp.CONTROLE = :CONTROLE AND vp.ANO = :ANO AND vp.SAFRA = :CULTURA 
       group by
       vp.COD_FORNECEDOR,
       vp.ANO,
@@ -90,7 +90,8 @@ async function importa(context) {
                                       ,'C','Cacau','Outra'),
       vp.VARIEDADE,
       vp.CONTROLE,
-      vp.SAFRA
+      vp.SAFRA,
+      vp.PROCESSO
       order by vp.DATA`;    
   }
 
