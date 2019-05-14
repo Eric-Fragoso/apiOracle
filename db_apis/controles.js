@@ -63,7 +63,7 @@ async function importa(context) {
     binds.CONTROLE = context.id;
     binds.ANO = context.ano;
     binds.CULTURA = context.cultura;
-    console.log(binds);  
+    //console.log(binds);  
 
     query = `\n select d.SAFRA,
        d.CONTROLE, 
