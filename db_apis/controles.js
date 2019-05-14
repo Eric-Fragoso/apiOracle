@@ -78,7 +78,7 @@ async function importa(context) {
       vp.PROCESSO,
       sum(vp.PESO) as VOLUME_KG                                                                                                                  
       from mgagr.agr_bi_visaoprodutivaph_dq vp
-      where vp.PROCESSO = 1 AND vp.CONTROLE = :CONTROLE AND vp.ANO = :ANO AND vp.SAFRA = :CULTURA 
+      where vp.CONTROLE = :CONTROLE AND vp.ANO = :ANO AND vp.SAFRA = :CULTURA 
       group by
       vp.COD_FORNECEDOR,
       vp.ANO,
