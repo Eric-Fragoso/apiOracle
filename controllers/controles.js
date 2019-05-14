@@ -93,7 +93,6 @@ async function visualprodutor(req, res, next) {
 
 
 async function images(req, res, next) {
-  console.log("entrou",req.params);
     var context = "";
  
     context = req.params.controleId;
