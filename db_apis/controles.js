@@ -65,17 +65,24 @@ async function importa(context) {
     binds.CULTURA = context.cultura;
     //console.log(binds);  
 
-    query = `\n select d.SAFRA,
-       d.CONTROLE,
-       round(sum(case when(d.COD_PROCESSO = 1) then d.PESO else 0 end),2) as RECEPCAO,
-       round(sum(case when(d.COD_PROCESSO in (3.1,3.2)) then d.PESO else 0 end),2) as SELECAO,         
-       round(sum(case when(d.COD_PROCESSO in (4.1,4.12,4.21,4.24)) then d.PESO else 0 end),2) as EMBALAMENTO,                  
-       round(sum(case when(d.COD_PROCESSO = 6) then d.PESO else 0 end),2) EXPEDICAO            
-       from mgagr.agr_vw_saldosph_dq d
-            
-       group by
-       d.SAFRA,
-       d.CONTROLE`;    
+    query = `\n \n select vp.COD_FORNECEDOR as COD_FORNECEDOR, vp.ANO as ANO, vp.MES, to_number(to_char(to_date(vp.DATA,'DD/MM/YYYY'),'WW')) as SEMANA,
+    vp.DATA,decode(upper(substr(vp.SAFRA,1,1)),'M','Manga','U','Uva','C','Cacau','Outra') as CULTURA,
+    vp.VARIEDADE, vp.CONTROLE as CONTROLE, vp.SAFRA, sum(vp.PESO) as VOLUME_KG                                                                                                                  
+      from mgagr.agr_bi_visaoprodutivaph_dq vp
+      where vp.PROCESSO = 1 AND vp.CONTROLE = :CONTROLE AND vp.ANO = :ANO AND vp.SAFRA = :CULTURA 
+      group by
+      vp.COD_FORNECEDOR,
+      vp.ANO,
+      vp.MES,
+      to_number(to_char(to_date(vp.DATA,'DD/MM/YYYY'),'WW')),
+      vp.DATA,
+      decode(upper(substr(vp.SAFRA,1,1)),'M','Manga'
+                                      ,'U','Uva'
+                                      ,'C','Cacau','Outra'),
+      vp.VARIEDADE,
+      vp.CONTROLE,
+      vp.SAFRA
+      order by vp.DATA`;    
   }
 
   console.log(query);
