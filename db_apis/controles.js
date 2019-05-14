@@ -84,6 +84,7 @@ group by
   console.log(query);
 
   const result = await database.simpleExecute(query, binds);
+  console.log(result);
   return result.rows;
 }
 
