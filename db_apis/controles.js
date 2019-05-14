@@ -75,11 +75,9 @@ async function importa(context) {
       vp.VARIEDADE, 
       vp.CONTROLE as CONTROLE, 
       vp.SAFRA, 
-      sum(vp.PESO) as VOLUME_KG,
-      sum(case when(vp.PROCESSO = 1) then d.PESO else 0 end) as RECEPCAO  
-
+      sum(vp.PESO) as VOLUME_KG                                                                                                                  
       from mgagr.agr_bi_visaoprodutivaph_dq vp
-      where vp.CONTROLE = :CONTROLE AND vp.ANO = :ANO AND vp.SAFRA = :CULTURA 
+      where vp.PROCESSO = 1 AND vp.CONTROLE = :CONTROLE AND vp.ANO = :ANO AND vp.SAFRA = :CULTURA 
       group by
       vp.COD_FORNECEDOR,
       vp.ANO,
