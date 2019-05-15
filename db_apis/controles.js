@@ -186,7 +186,7 @@ group by
     d.CONTROLE`;   
   }
 
-  const result = await database.simpleExecute(query, binds);
+  const result = await database.execute(query, binds);
   console.log(result);
   return result.rows;
 }
