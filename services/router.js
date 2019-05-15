@@ -9,6 +9,9 @@ router.route(`/fornecedores/:id?`)
 router.route(`/controles/:id?`)
   .get(controles.get);
 
+router.route(`/controles/acompanhamento/:id?`)
+  .get(controles.acompanhamentoControle);
+
 router.route(`/controles/:id?/:ano?/:cultura?`)
   .get(controles.importar);
 

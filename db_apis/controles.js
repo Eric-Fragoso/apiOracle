@@ -65,20 +65,11 @@ async function importa(context) {
     binds.CULTURA = context.cultura;
     //console.log(binds);  
 
-    query = `\n select 
-      vp.COD_FORNECEDOR as COD_FORNECEDOR, 
-      vp.ANO as ANO, 
-      vp.MES, 
-      to_number(to_char(to_date(vp.DATA,'DD/MM/YYYY'),'WW')) as SEMANA,
-      vp.DATA,
-      decode(upper(substr(vp.SAFRA,1,1)),'M','Manga','U','Uva','C','Cacau','Outra') as CULTURA,
-      vp.VARIEDADE, 
-      vp.CONTROLE as CONTROLE, 
-      vp.SAFRA, 
-      vp.PROCESSO,
-      sum(vp.PESO) as VOLUME_KG                                                                                                                  
+    query = `\n select vp.COD_FORNECEDOR as COD_FORNECEDOR, vp.ANO as ANO, vp.MES, to_number(to_char(to_date(vp.DATA,'DD/MM/YYYY'),'WW')) as SEMANA,
+    vp.DATA,decode(upper(substr(vp.SAFRA,1,1)),'M','Manga','U','Uva','C','Cacau','Outra') as CULTURA,
+    vp.VARIEDADE, vp.CONTROLE as CONTROLE, vp.SAFRA, sum(vp.PESO) as VOLUME_KG                                                                                                                  
       from mgagr.agr_bi_visaoprodutivaph_dq vp
-      where vp.CONTROLE = :CONTROLE AND vp.ANO = :ANO AND vp.SAFRA = :CULTURA 
+      where vp.PROCESSO = 1 AND vp.CONTROLE = :CONTROLE AND vp.ANO = :ANO AND vp.SAFRA = :CULTURA 
       group by
       vp.COD_FORNECEDOR,
       vp.ANO,
@@ -90,9 +81,8 @@ async function importa(context) {
                                       ,'C','Cacau','Outra'),
       vp.VARIEDADE,
       vp.CONTROLE,
-      vp.SAFRA,
-      vp.PROCESSO
-      order by vp.DATA`;    
+      vp.SAFRA
+      order by vp.DATA`;   
   }
 
   const result = await database.simpleExecute(query, binds);
@@ -170,7 +160,39 @@ async function visualprodutor(context) {
   return result.rows;
 }
 
+
+async function acompanhamentoControle(context) {
+  
+  let query = baseQuery;
+  const binds = {};
+ 
+   if (context.id) {
+    binds.CONTROLE = context.id;
+    binds.ANO = context.ano;
+    binds.CULTURA = context.cultura;
+    //console.log(binds);  
+
+    query = `\n select d.SAFRA,
+    d.CONTROLE,
+    round(sum(case when(d.COD_PROCESSO = 1) then d.PESO else 0 end),2) as RECEPCAO,
+    round(sum(case when(d.COD_PROCESSO in (3.1,3.2)) then d.PESO else 0 end),2) as SELECAO,         
+    round(sum(case when(d.COD_PROCESSO in (4.1,4.12,4.21,4.24)) then d.PESO else 0 end),2) as EMBALAMENTO,                  
+    round(sum(case when(d.COD_PROCESSO = 6) then d.PESO else 0 end),2) EXPEDICAO            
+from mgagr.agr_vw_saldosph_dq d, {},
+where d.COD_PROCESSO in (1, 3.1, 3.2, 4.1, 4.12, 4.21, 4.24, 6)
+   
+group by
+   d.SAFRA,
+    d.CONTROLE`;   
+  }
+
+  const result = await database.simpleExecute(query, binds);
+  console.log(result);
+  return result.rows;
+}
+
 module.exports.visualprodutor = visualprodutor;
 module.exports.find = find;
 module.exports.importa = importa;
 module.exports.fornecedor = fornecedor;
+module.exports.acompanhamentoControle = acompanhamentoControle;
