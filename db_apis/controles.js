@@ -167,10 +167,10 @@ async function acompanhamentoControle(context) {
   const binds = {};
  
    if (context.id) {
-    //binds.CONTROLE = context.id;
+    binds.CONTROLE = context.id;
     //binds.ANO = context.ano;
-    //binds.CULTURA = context.cultura;
-    //console.log(binds);  
+    binds.CULTURA = context.cultura;
+    console.log(binds);  
 
     query = `\n select d.SAFRA,
     d.CONTROLE,
@@ -179,7 +179,7 @@ async function acompanhamentoControle(context) {
     round(sum(case when(d.COD_PROCESSO in (4.1,4.12,4.21,4.24)) then d.PESO else 0 end),2) as EMBALAMENTO,                  
     round(sum(case when(d.COD_PROCESSO = 6) then d.PESO else 0 end),2) as EXPEDICAO            
 from mgagr.agr_vw_saldosph_dq d, 
-where d.COD_PROCESSO in (1, 3.1, 3.2, 4.1, 4.12, 4.21, 4.24, 6)
+where d.COD_PROCESSO in (1, 3.1, 3.2, 4.1, 4.12, 4.21, 4.24, 6) AND d.CONTROLE = :CONTROLE AND d.SAFRA = :CULTURA
    
 group by
    d.SAFRA,
