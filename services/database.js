@@ -23,7 +23,7 @@ function simpleExecute(statement, binds = [], opts = {}) {
         const result = await conn.execute(statement, binds, opts);
         resolve(result);
       } catch (err) {
-        console.log("rejeitando");
+        console.log("rejeitando pelo erro: ", err);
         reject(err);
       } finally {
         if (conn) { 

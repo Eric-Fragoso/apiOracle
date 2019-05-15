@@ -168,9 +168,7 @@ async function acompanhamentoControle(context) {
  
    if (context.id) {
     binds.CONTROLE = context.id;
-    //binds.ANO = context.ano;
     binds.CULTURA = context.cultura;
-    console.log(binds);  
 
     query = `\n select d.SAFRA,
     d.CONTROLE,
@@ -178,16 +176,16 @@ async function acompanhamentoControle(context) {
     round(sum(case when(d.COD_PROCESSO in (3.1,3.2)) then d.PESO else 0 end),2) as SELECAO,         
     round(sum(case when(d.COD_PROCESSO in (4.1,4.12,4.21,4.24)) then d.PESO else 0 end),2) as EMBALAMENTO,                  
     round(sum(case when(d.COD_PROCESSO = 6) then d.PESO else 0 end),2) EXPEDICAO            
-from mgagr.agr_vw_saldosph_dq d, 
-where d.COD_PROCESSO in (1, 3.1, 3.2, 4.1, 4.12, 4.21, 4.24, 6) and d.CONTROLE = :CONTROLE and d.SAFRA = :CULTURA
+    from mgagr.agr_vw_saldosph_dq d, 
+    where d.COD_PROCESSO in (1, 3.1, 3.2, 4.1, 4.12, 4.21, 4.24, 6) 
    
-group by
-   d.SAFRA,
+    group by
+    d.SAFRA,
     d.CONTROLE`;   
   }
 
-  const result = await database.simpleExecute(query, binds);
-  console.log(result);
+  const result = await database.simpleExecute(query);
+
   return result.rows;
 }
 
