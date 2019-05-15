@@ -167,9 +167,9 @@ async function acompanhamentoControle(context) {
   const binds = {};
  
    if (context.id) {
-    binds.CONTROLE = context.id;
-    binds.ANO = context.ano;
-    binds.CULTURA = context.cultura;
+    //binds.CONTROLE = context.id;
+    //binds.ANO = context.ano;
+    //binds.CULTURA = context.cultura;
     //console.log(binds);  
 
     query = `\n select d.SAFRA,
@@ -183,7 +183,7 @@ where d.COD_PROCESSO in (1, 3.1, 3.2, 4.1, 4.12, 4.21, 4.24, 6)
    
 group by
    d.SAFRA,
-    d.CONTROLE`, [];   
+    d.CONTROLE`;   
   }
 
   const result = await database.simpleExecute(query, binds);
