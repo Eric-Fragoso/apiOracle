@@ -9,7 +9,7 @@ router.route(`/fornecedores/:id?`)
 router.route(`/controles/:id?`)
   .get(controles.get);
 
-router.route(`/controles/acompanhamento/:id?`)
+router.route(`/controles/acompanhamento/:id?/:ano?/:cultura?`)
   .get(controles.acompanhamentoControle);
 
 router.route(`/controles/:id?/:ano?/:cultura?`)
