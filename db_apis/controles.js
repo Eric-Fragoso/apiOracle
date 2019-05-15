@@ -168,7 +168,7 @@ async function acompanhamentoControle(context) {
  
    if (context.id) {
     binds.CONTROLE = context.id;
-    binds.SAFRA = context.cultura + context.ano;
+    binds.SAFRA = context.cultura;
     console.log(context.cultura, context.ano);
 
     query = `\n select d.SAFRA,
