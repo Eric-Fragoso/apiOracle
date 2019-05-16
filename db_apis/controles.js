@@ -173,16 +173,19 @@ async function acompanhamentoControle(context) {
 
     query = `\n select d.SAFRA,
     d.CONTROLE,
+    rc.CON_DT_COLHEITA as DATA_CONTROLE,
     round(sum(case when(d.COD_PROCESSO = 1) then d.PESO else 0 end),2) as RECEPCAO,
     round(sum(case when(d.COD_PROCESSO in (3.1,3.2)) then d.PESO else 0 end),2) as SELECAO,         
     round(sum(case when(d.COD_PROCESSO in (4.1,4.12,4.21,4.24)) then d.PESO else 0 end),2) as EMBALAMENTO,                  
     round(sum(case when(d.COD_PROCESSO = 6) then d.PESO else 0 end),2) EXPEDICAO            
-    from mgagr.agr_vw_saldosph_dq d 
+    from mgagr.agr_vw_saldosph_dq d
+    inner join mgagr.agr_vw_resumocontrole_dq rc
+          on(rc.compa_in_nrocontrole = d.controle)
     where d.COD_PROCESSO in (1, 3.1, 3.2, 4.1, 4.12, 4.21, 4.24, 6) and d.CONTROLE = :CONTROLE and d.SAFRA = :SAFRA
-   
     group by
     d.SAFRA,
-    d.CONTROLE`;   
+    d.CONTROLE,
+    rc.CON_DT_COLHEITA`;   
   }
 
   const result = await database.simpleExecute(query, binds);
