@@ -26,11 +26,11 @@ async function comerciais(context) {
   let query = baseQuery;
   const binds = {};
  
-  query = `select * from mgagr.agr_bi_visaocomercial_dq`;
+  query = `select * from mgagr.agr_bi_visaocomercial_dq order by FORNECEDOR`;
    if (context.id) {
     binds.CONTROLE = context.id;
 
-    query = `select * from mgagr.agr_bi_visaocomercial_dq`;
+    query = `select * from mgagr.agr_bi_visaocomercial_dq order by FORNECEDOR`;
   }
 
   const result = await database.simpleExecute(query, binds);
