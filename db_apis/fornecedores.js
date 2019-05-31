@@ -34,6 +34,7 @@ async function comerciais(context) {
   }
 
   const result = await database.simpleExecute(query, binds);
+  console.log(result.rows);
   return result.rows;
 }
 
