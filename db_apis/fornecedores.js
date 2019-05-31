@@ -3,7 +3,7 @@ const database = require('../services/database.js');
 const baseQuery = 
   `select  f.FAGR_IN_CODIGO AS COD_FORNECEDOR,
   f.FAGR_ST_NOME AS FORNECEDOR
-  from mgagr.AGR_FAGRICOLA f`;
+  from mgagr.AGR_FAGRICOLA f order by FORNECEDOR`;
   
 async function find(context) {
   
@@ -26,11 +26,11 @@ async function comerciais(context) {
   let query = baseQuery;
   const binds = {};
  
-  query = `select * from mgagr.agr_bi_visaocomercial_dq order by FORNECEDOR`;
+  query = `select * from mgagr.agr_bi_visaocomercial_dq`;
    if (context.id) {
     binds.CONTROLE = context.id;
 
-    query = `select * from mgagr.agr_bi_visaocomercial_dq order by FORNECEDOR`;
+    query = `select * from mgagr.agr_bi_visaocomercial_dq `;
   }
 
   const result = await database.simpleExecute(query, binds);
