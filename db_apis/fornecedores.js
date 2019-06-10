@@ -13,9 +13,10 @@ async function find(context) {
   if (context.id) {
     binds.COD_FORNECEDOR = context.id;
  
-    query += `\n where f.FAGR_IN_CODIGO = :COD_FORNECEDOR`;
+    query += `\n where COD_FORNECEDOR = :COD_FORNECEDOR`;
   }
- 
+  
+  console.log(query);
   const result = await database.simpleExecute(query, binds);
  
   return result.rows;
