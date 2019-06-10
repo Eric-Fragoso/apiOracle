@@ -10,6 +10,7 @@ async function find(context) {
   let query = baseQuery;
   const binds = {};
  
+  console.log(context);
   if (context.id) {
     binds.COD_FORNECEDOR = context.id;
  
@@ -18,7 +19,7 @@ async function find(context) {
   
   console.log(query);
   const result = await database.simpleExecute(query, binds);
- 
+ console.log(result.rows);
   return result.rows;
 }
 
