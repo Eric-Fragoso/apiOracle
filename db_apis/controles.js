@@ -86,13 +86,13 @@ async function importa(context) {
     }else if(context.etapa == "Selecao"){
       query = `\n select vp.COD_FORNECEDOR as COD_FORNECEDOR, vp.ANO, vp.MES, to_number(to_char(to_date(vp.DATA,'DD/MM/YYYY'),'WW')) as SEMANA, 
       vp.DATA, decode(upper(substr(vp.SAFRA,1,1)),'M','Manga','U','Uva','C','Cacau','Outra') as CULTURA,
-      vp.VARIEDADE, vp.CONTROLE as CONTROLE, 
+      vp.VARIEDADE, vp.CONTROLE as CONTROLE, vp.SAFRA,
       sum(case when (vp.PROCESSO = 2 and vp.MERCADO like 'M.I%' )then vp.PESO else 0 end)as VOLUME_KG_MI,
       sum(case when (vp.PROCESSO = 2 and vp.MERCADO not like 'M.I%' )then vp.PESO else 0 end)as VOLUME_KG_ME,
       sum(case when (vp.PROCESSO = 4 and upper(vp.MERCADO) not like '%SELE%' ) then vp.PESO else 0 end) as VOLUME_KG_REFUGO         
                                                                                                                         
       from mgagr.agr_bi_visaoprodutivaph_dq vp
-      where vp.PROCESSO in (2,4)
+      where vp.PROCESSO in (2,4) AND vp.CONTROLE = :CONTROLE AND vp.ANO = :ANO AND vp.SAFRA = :CULTURA
       group by
             vp.ANO,
             vp.MES,
@@ -107,7 +107,7 @@ async function importa(context) {
     }else if(context.etapa == "Embalagem"){
       query = `\n select vp.COD_FORNECEDOR as COD_FORNECEDOR, vp.ANO,vp.MES,to_number(to_char(to_date(vp.DATA,'DD/MM/YYYY'),'WW')) as SEMANA,
       vp.DATA, decode(upper(substr(vp.SAFRA,1,1)),'M','Manga','U','Uva','C','Cacau','Outra') as CULTURA,
-      vp.VARIEDADE,vp.CONTROLE,
+      vp.VARIEDADE,vp.CONTROLE as CONTROLE, vp.SAFRA,
       sum(case when (vp.PROCESSO = 3 and vp.MERCADO like 'M.I%' )then vp.PESO 
                else 0 end)as VOLUME_KG_MI,
       sum(case when (vp.PROCESSO = 3 and vp.MERCADO not like 'M.I%' )then vp.PESO 
@@ -116,7 +116,7 @@ async function importa(context) {
                else 0 end) as VOLUME_KG_REFUGO         
                                                                                                                         
       from mgagr.agr_bi_visaoprodutivaph_dq vp
-      where vp.PROCESSO in (3,4)
+      where vp.PROCESSO in (3,4) AND vp.CONTROLE = :CONTROLE AND vp.ANO = :ANO AND vp.SAFRA = :CULTURA
       group by
       vp.ANO,
       vp.MES,
