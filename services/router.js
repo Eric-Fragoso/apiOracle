@@ -12,7 +12,7 @@ router.route(`/controles/:id?`)
 router.route(`/controles/acompanhamento/:id?/:ano?/:cultura?`)
   .get(controles.acompanhamentoControle);
 
-router.route(`/controles/:id?/:ano?/:cultura?/:etapa?`)
+router.route(`/controles/:id?/:ano?/:cultura?`)
   .get(controles.importar);
 
 router.route(`/controle/:fornecedorId?/:controleId?`)
