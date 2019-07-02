@@ -54,6 +54,7 @@ async function importar(req, res, next) {
     context.id = req.params.id;
     context.ano = " 20" + req.params.ano;
     context.cultura = req.params.cultura+req.params.ano ;
+    context.etapa = req.params.etapa;
 
     const rows = await controles.importa(context);
     if (req.params.id) {

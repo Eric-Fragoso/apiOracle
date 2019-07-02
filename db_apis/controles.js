@@ -63,11 +63,11 @@ async function importa(context) {
     binds.CONTROLE = context.id;
     binds.ANO = context.ano;
     binds.CULTURA = context.cultura;
-    //console.log(binds);  
-
-    query = `\n select vp.COD_FORNECEDOR as COD_FORNECEDOR, vp.ANO as ANO, vp.MES, to_number(to_char(to_date(vp.DATA,'DD/MM/YYYY'),'WW')) as SEMANA,
-    vp.DATA,decode(upper(substr(vp.SAFRA,1,1)),'M','Manga','U','Uva','C','Cacau','Outra') as CULTURA,
-    vp.VARIEDADE, vp.CONTROLE as CONTROLE, vp.SAFRA, sum(vp.PESO) as VOLUME_KG                                                                                                                  
+    console.log(context.etapa);  
+    if (context.etapa == "Recepcao"){
+      query = `\n select vp.COD_FORNECEDOR as COD_FORNECEDOR, vp.ANO as ANO, vp.MES, to_number(to_char(to_date(vp.DATA,'DD/MM/YYYY'),'WW')) as SEMANA,
+      vp.DATA,decode(upper(substr(vp.SAFRA,1,1)),'M','Manga','U','Uva','C','Cacau','Outra') as CULTURA,
+      vp.VARIEDADE, vp.CONTROLE as CONTROLE, vp.SAFRA, sum(vp.PESO) as VOLUME_KG                                                                                                                  
       from mgagr.agr_bi_visaoprodutivaph_dq vp
       where vp.PROCESSO = 1 AND vp.CONTROLE = :CONTROLE AND vp.ANO = :ANO AND vp.SAFRA = :CULTURA 
       group by
@@ -82,7 +82,54 @@ async function importa(context) {
       vp.VARIEDADE,
       vp.CONTROLE,
       vp.SAFRA
-      order by vp.DATA`;   
+      order by vp.DATA`; 
+    }else if(context.etapa == "Selecao"){
+      query = `\n select vp.ANO, vp.MES, to_number(to_char(to_date(vp.DATA,'DD/MM/YYYY'),'WW')) as SEMANA, 
+      vp.DATA, decode(upper(substr(vp.SAFRA,1,1)),'M','Manga','U','Uva','C','Cacau','Outra') as CULTURA,
+      vp.VARIEDADE, vp.CONTROLE as CONTROLE, 
+      sum(case when (vp.PROCESSO = 2 and vp.MERCADO like 'M.I%' )then vp.PESO else 0 end)as VOLUME_KG_MI,
+      sum(case when (vp.PROCESSO = 2 and vp.MERCADO not like 'M.I%' )then vp.PESO else 0 end)as VOLUME_KG_ME,
+      sum(case when (vp.PROCESSO = 4 and upper(vp.MERCADO) not like '%SELE%' ) then vp.PESO else 0 end) as VOLUME_KG_REFUGO         
+                                                                                                                        
+      from mgagr.agr_bi_visaoprodutivaph_dq vp
+      where vp.PROCESSO in (2,4)
+      group by
+            vp.ANO,
+            vp.MES,
+            to_number(to_char(to_date(vp.DATA,'DD/MM/YYYY'),'WW')),
+            vp.DATA,
+            decode(upper(substr(vp.SAFRA,1,1)),'M','Manga'
+                                            ,'U','Uva'
+                                            ,'C','Cacau','Outra'),
+            vp.VARIEDADE,
+            vp.CONTROLE 
+            order by vp.DATA`;  
+    }else if(context.etapa == "Embalagem"){
+      query = `\n select vp.ANO,vp.MES,to_number(to_char(to_date(vp.DATA,'DD/MM/YYYY'),'WW')) as SEMANA,
+      vp.DATA, decode(upper(substr(vp.SAFRA,1,1)),'M','Manga','U','Uva','C','Cacau','Outra') as CULTURA,
+      vp.VARIEDADE,vp.CONTROLE,
+      sum(case when (vp.PROCESSO = 3 and vp.MERCADO like 'M.I%' )then vp.PESO 
+               else 0 end)as VOLUME_KG_MI,
+      sum(case when (vp.PROCESSO = 3 and vp.MERCADO not like 'M.I%' )then vp.PESO 
+               else 0 end)as VOLUME_KG_ME,
+      sum(case when (vp.PROCESSO = 4 and upper(vp.MERCADO) not like '%EMB%' ) then vp.PESO 
+               else 0 end) as VOLUME_KG_REFUGO         
+                                                                                                                        
+      from mgagr.agr_bi_visaoprodutivaph_dq vp
+      where vp.PROCESSO in (3,4)
+      group by
+      vp.ANO,
+      vp.MES,
+      to_number(to_char(to_date(vp.DATA,'DD/MM/YYYY'),'WW')),
+      vp.DATA,
+      decode(upper(substr(vp.SAFRA,1,1)),'M','Manga'
+                                      ,'U','Uva'
+                                      ,'C','Cacau','Outra'),
+      vp.VARIEDADE,
+      vp.CONTROLE
+      order by vp.DATA`; 
+    }
+      
   }
 
   const result = await database.simpleExecute(query, binds);

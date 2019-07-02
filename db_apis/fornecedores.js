@@ -12,9 +12,9 @@ async function find(context) {
  
   console.log(context);
   if (context.id) {
-    binds.COD_FORNECEDOR = context.id;
+    binds.FORNECEDOR = context.id;
  
-    query += `\n where COD_FORNECEDOR = :COD_FORNECEDOR`;
+    query += `\n where COD_FORNECEDOR = :FORNECEDOR`;
   }
   
   console.log(query);
