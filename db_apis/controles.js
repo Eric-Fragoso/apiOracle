@@ -84,7 +84,7 @@ async function importa(context) {
       vp.SAFRA
       order by vp.DATA`; 
     }else if(context.etapa == "Selecao"){
-      query = `\n select vp.ANO, vp.MES, to_number(to_char(to_date(vp.DATA,'DD/MM/YYYY'),'WW')) as SEMANA, 
+      query = `\n select vp.COD_FORNECEDOR as COD_FORNECEDOR, vp.ANO, vp.MES, to_number(to_char(to_date(vp.DATA,'DD/MM/YYYY'),'WW')) as SEMANA, 
       vp.DATA, decode(upper(substr(vp.SAFRA,1,1)),'M','Manga','U','Uva','C','Cacau','Outra') as CULTURA,
       vp.VARIEDADE, vp.CONTROLE as CONTROLE, 
       sum(case when (vp.PROCESSO = 2 and vp.MERCADO like 'M.I%' )then vp.PESO else 0 end)as VOLUME_KG_MI,
@@ -105,7 +105,7 @@ async function importa(context) {
             vp.CONTROLE 
             order by vp.DATA`;  
     }else if(context.etapa == "Embalagem"){
-      query = `\n select vp.ANO,vp.MES,to_number(to_char(to_date(vp.DATA,'DD/MM/YYYY'),'WW')) as SEMANA,
+      query = `\n select vp.COD_FORNECEDOR as COD_FORNECEDOR, vp.ANO,vp.MES,to_number(to_char(to_date(vp.DATA,'DD/MM/YYYY'),'WW')) as SEMANA,
       vp.DATA, decode(upper(substr(vp.SAFRA,1,1)),'M','Manga','U','Uva','C','Cacau','Outra') as CULTURA,
       vp.VARIEDADE,vp.CONTROLE,
       sum(case when (vp.PROCESSO = 3 and vp.MERCADO like 'M.I%' )then vp.PESO 
