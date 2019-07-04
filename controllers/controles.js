@@ -72,12 +72,12 @@ async function importar(req, res, next) {
 async function exibesel(req, res, next) {
   try {
     const context = {};
- 
+    console.log("rodando exibesel");
     //context.id = parseInt(req.params.id, 10);
     context.id = req.params.id;
     context.ano = " 20" + req.params.ano;
     context.cultura = req.params.cultura+req.params.ano ;
-    const rows = await controles.importa(context);
+    const rows = await controles.exibesel(context);
     if (req.params.id) {
       if (rows.length != 0) {
         res.status(200).json(rows);
