@@ -124,6 +124,9 @@ async function exibesel(context) {
                                         ,'U','Uva'
                                         ,'C','Cacau','Outra'),
         vp.VARIEDADE,
+        VOLUME_KG_ME,
+        VOLUME_KG_MI,
+        VOLUME_KG_REFUGO,
         vp.CONTROLE`; 
         
       
