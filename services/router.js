@@ -15,6 +15,9 @@ router.route(`/controles/acompanhamento/:id?/:ano?/:cultura?`)
 router.route(`/controles/:id?/:ano?/:cultura?`)
   .get(controles.importar);
 
+router.route(`/controlessel/:id?/:ano?/:cultura?`)
+.get(controles.exibesel);
+
 router.route(`/controle/:fornecedorId?/:controleId?`)
 .get(controles.visualprodutor);
 
