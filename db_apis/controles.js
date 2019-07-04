@@ -104,7 +104,7 @@ async function exibesel(context) {
     vp.DATA,decode(upper(substr(vp.SAFRA,1,1)),'M','Manga'
                                      ,'U','Uva'
                                      ,'C','Cacau','Outra') as CULTURA,
-    vp.VARIEDADE, vp.CONTROLE, vp.MERCADO,
+    vp.VARIEDADE, vp.CONTROLE, vp.MERCADO, vp.CALIBRE,
     sum(case when (vp.PROCESSO = 2 and vp.MERCADO like 'M.I%' )then vp.PESO 
              else 0 end)as VOLUME_KG_MI,
     sum(case when (vp.PROCESSO = 2 and vp.MERCADO not like 'M.I%' )then vp.PESO 
@@ -125,6 +125,7 @@ async function exibesel(context) {
                                         ,'C','Cacau','Outra'),
         vp.VARIEDADE,
         vp.MERCADO,
+        vp.CALIBRE,
         vp.CONTROLE`; 
         
       
