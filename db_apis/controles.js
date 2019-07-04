@@ -126,7 +126,6 @@ async function exibesel(context) {
         vp.VARIEDADE,
         VOLUME_KG_ME,
         VOLUME_KG_MI,
-        VOLUME_KG_REFUGO,
         vp.CONTROLE`; 
         
       
