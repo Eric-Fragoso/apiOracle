@@ -124,6 +124,7 @@ async function exibesel(context) {
                                         ,'U','Uva'
                                         ,'C','Cacau','Outra'),
         vp.VARIEDADE,
+        vp.MERCADO,
         vp.CONTROLE`; 
         
       
