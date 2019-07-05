@@ -190,8 +190,8 @@ async function exibeexp(context) {
  
    if (context.id) {
     binds.CONTROLE = context.id;
-    binds.ANO = context.ano;
-    binds.CULTURA = context.cultura;
+ //   binds.ANO = context.ano;
+   // binds.CULTURA = context.cultura;
     query = `\n select vc.CONTROLE,
               vc.MERCADO,
               vc.CONTAINER,
@@ -203,7 +203,7 @@ async function exibeexp(context) {
               vc.CAIXA,
               sum(vc.QTD_CAIXA) as QTD_CAIXA,
               sum(vc.PESO_CX) as KG
-          from mgagr.agr_bi_visaocomercial_dq vc
+          from mgagr.agr_bi_visaocomercial_dq vc where vc.CONTROLE = :CONTROLE
           group by
               vc.CONTROLE,
               vc.MERCADO,
