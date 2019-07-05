@@ -21,6 +21,9 @@ router.route(`/controlessel/:id?/:ano?/:cultura?`)
 router.route(`/controlesemb/:id?/:ano?/:cultura?`)
 .get(controles.exibeemb);
 
+router.route(`/controlesexp/:id?/:ano?/:cultura?`)
+.get(controles.exibeemb);
+
 router.route(`/controle/:fornecedorId?/:controleId?`)
 .get(controles.visualprodutor);
 

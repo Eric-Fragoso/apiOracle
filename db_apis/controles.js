@@ -183,6 +183,48 @@ async function exibeemb(context) {
   return result.rows;
 }
 
+async function exibeexp(context) {
+  
+  let query = baseQuery;
+  const binds = {};
+ 
+   if (context.id) {
+    binds.CONTROLE = context.id;
+    binds.ANO = context.ano;
+    binds.CULTURA = context.cultura;
+    query = `\n select vc.CONTROLE,
+              vc.MERCADO,
+              vc.CONTAINER,
+              vc.DATA_EMBARQUE,
+              decode(upper(substr(vc.SAFRA,1,1)),'M','Manga'
+                                              ,'U','Uva'
+                                              ,'C','Cacau','Outra') as CULTURA,
+              vc.VARIEDADE,
+              vc.CAIXA,
+              sum(vc.QTD_CAIXA) as QTD_CAIXA,
+              sum(vc.PESO_CX) as KG
+          from mgagr.agr_bi_visaocomercial_dq vc
+          group by
+              vc.CONTROLE,
+              vc.MERCADO,
+              vc.CONTAINER,
+              vc.DATA_EMBARQUE,
+              decode(upper(substr(vc.SAFRA,1,1)),'M','Manga'
+                                              ,'U','Uva'
+                                              ,'C','Cacau','Outra'),
+              vc.VARIEDADE,
+              vc.CAIXA
+
+          `; 
+        
+      
+  }
+
+  const result = await database.simpleExecute(query, binds);
+  console.log(result);
+  return result.rows;
+}
+
 async function fornecedor(context) {
   
   let query = baseQuery;
@@ -291,5 +333,6 @@ module.exports.find = find;
 module.exports.importa = importa;
 module.exports.exibesel = exibesel;
 module.exports.exibeemb = exibeemb;
+module.exports.exibeexp = exibeexp;
 module.exports.fornecedor = fornecedor;
 module.exports.acompanhamentoControle = acompanhamentoControle;
