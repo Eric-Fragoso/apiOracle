@@ -92,6 +92,29 @@ async function exibesel(req, res, next) {
   }
 }
 
+async function exibeemb(req, res, next) {
+  try {
+    const context = {};
+    console.log("rodando exibesel");
+    //context.id = parseInt(req.params.id, 10);
+    context.id = req.params.id;
+    context.ano = " 20" + req.params.ano;
+    context.cultura = req.params.cultura+req.params.ano ;
+    const rows = await controles.exibeemb(context);
+    if (req.params.id) {
+      if (rows.length != 0) {
+        res.status(200).json(rows);
+      } else {
+        res.status(404).end();
+      }
+    } else {
+      res.status(200).json(rows);
+    }
+  } catch (err) {
+    next(err);
+  }
+}
+
 async function fornecedor(req, res, next) {
   try {
     const context = {};
@@ -156,5 +179,6 @@ module.exports.visualprodutor = visualprodutor;
 module.exports.get = get;
 module.exports.importar = importar;
 module.exports.exibesel = exibesel;
+module.exports.exibeemb = exibeemb;
 module.exports.fornecedor = fornecedor;
 module.exports.acompanhamentoControle = acompanhamentoControle;
