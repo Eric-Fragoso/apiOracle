@@ -22,7 +22,7 @@ router.route(`/controlesemb/:id?/:ano?/:cultura?`)
 .get(controles.exibeemb);
 
 router.route(`/controlesexp/:id?/:ano?/:cultura?`)
-.get(controles.exibeemb);
+.get(controles.exibeexp);
 
 router.route(`/controle/:fornecedorId?/:controleId?`)
 .get(controles.visualprodutor);
