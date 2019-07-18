@@ -58,7 +58,7 @@ async function importa(context) {
   
   let query = baseQuery;
   const binds = {};
- 
+  console.log("na api", context);
    if (context.id) {
     binds.CONTROLE = context.id;
     binds.ANO = context.ano;
