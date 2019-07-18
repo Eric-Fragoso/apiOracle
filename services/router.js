@@ -13,7 +13,7 @@ router.route(`/controles/acompanhamento/:id?/:ano?/:cultura?`)
   .get(controles.acompanhamentoControle);
 
 router.route(`/controles/:id?/:ano?/:cultura?`)
-  .get(controles.importar);
+  .get(controles.importa);
 
 router.route(`/controlessel/:id?/:ano?/:cultura?`)
 .get(controles.exibesel);
