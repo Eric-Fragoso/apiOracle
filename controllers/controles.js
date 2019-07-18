@@ -46,7 +46,7 @@ async function acompanhamentoControle(req, res, next) {
   }
 }
 
-async function importar(req, res, next) {
+async function importa(req, res, next) {
   try {
     const context = {};
  
@@ -199,7 +199,7 @@ async function images(req, res, next) {
 module.exports.images = images;
 module.exports.visualprodutor = visualprodutor;
 module.exports.get = get;
-module.exports.importar = importar;
+module.exports.importa = importa;
 module.exports.exibesel = exibesel;
 module.exports.exibeemb = exibeemb;
 module.exports.exibeexp = exibeexp;
