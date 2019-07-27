@@ -65,6 +65,8 @@ async function comercialControle(context) {
    if (context.controleId) {
     binds.CONTROLE = context.controleId;
 
+    console.log("aqui foi");
+
     query = `select        
     vc.TIPO_LANCAMENTO,
     vc.CONTROLE,
@@ -87,7 +89,7 @@ async function comercialControle(context) {
     sum(vc.CUSTO_PH) as CUSTO_PH,
     sum(vc.QTD_CAIXA) as QTD_CAIXA,
     sum(vc.PESO_CX) as KG
-    from mgagr.agr_bi_visaocomercial_dq vc where vc.CONTROLE = :CONTROLE
+    from mgagr.agr_bi_visaocomercial_dq vc 
 
     group by
     vc.TIPO_LANCAMENTO,
