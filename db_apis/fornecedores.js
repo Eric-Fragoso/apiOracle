@@ -75,6 +75,8 @@ async function comercialControle(context) {
     vc.MERCADO,
     vc.NOTA_FISCAL,
     vc.CONTAINER,              
+    vc.CARREGAMENTO, 
+    vc.SAFRA, 
     vc.DATA_EMBARQUE,
     decode(upper(substr(vc.SAFRA,1,1)),'M','Manga'
                                       ,'U','Uva'
@@ -99,7 +101,9 @@ async function comercialControle(context) {
     vc.COD_FORNECEDOR,
     vc.MERCADO,
     vc.NOTA_FISCAL,
-    vc.CONTAINER,              
+    vc.CONTAINER,
+    vc.CARREGAMENTO, 
+    vc.SAFRA,               
     vc.DATA_EMBARQUE,
     decode(upper(substr(vc.SAFRA,1,1)),'M','Manga'
                                       ,'U','Uva'
