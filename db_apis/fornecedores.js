@@ -64,12 +64,14 @@ async function comercialControle(context) {
  
    if (context.controleId) {
     binds.CONTROLE = context.controleId;
+    binds.FORNECEDOR = context.fornecedorId;
 
     console.log("aqui foi");
 
     query = `select        
     vc.TIPO_LANCAMENTO,
     vc.CONTROLE,
+    vc.COD_FORNECEDOR,
     vc.MERCADO,
     vc.NOTA_FISCAL,
     vc.CONTAINER,              
@@ -94,6 +96,7 @@ async function comercialControle(context) {
     group by
     vc.TIPO_LANCAMENTO,
     vc.CONTROLE,
+    vc.COD_FORNECEDOR,
     vc.MERCADO,
     vc.NOTA_FISCAL,
     vc.CONTAINER,              
