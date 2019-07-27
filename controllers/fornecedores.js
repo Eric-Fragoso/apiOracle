@@ -73,9 +73,10 @@ async function comercialControle(req, res, next) {
   try {
     const context = {};
 
+    context.fornecedorId = req.params.fornecedorId;
     context.controleId = req.params.controleId;
-    const rows = await fornecedores.comercial(context);
-    if (req.params.controleId) {
+    const rows = await fornecedores.comercialControle(context);
+    if (req.params.fornecedorId) {
       if (rows.length != 0) {
         res.status(200).json(rows);
       } else {

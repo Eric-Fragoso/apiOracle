@@ -89,7 +89,7 @@ async function comercialControle(context) {
     sum(vc.CUSTO_PH) as CUSTO_PH,
     sum(vc.QTD_CAIXA) as QTD_CAIXA,
     sum(vc.PESO_CX) as KG
-    from mgagr.agr_bi_visaocomercial_dq vc 
+    from mgagr.agr_bi_visaocomercial_dq vc where COD_FORNECEDOR = :FORNECEDOR and CONTROLE = :CONTROLE
 
     group by
     vc.TIPO_LANCAMENTO,

@@ -39,7 +39,7 @@ router.route(`/comercial/:fornecedorId?/:controleId?`)
 router.route(`/img/:controleId`)
   .get(controles.images);
 
-router.route(`/comercial/:controleId?`)
+router.route(`/relatorio/:fornecedorId?/:controleId?`)
   .get(fornecedores.comercialControle);
 
 module.exports = router;
