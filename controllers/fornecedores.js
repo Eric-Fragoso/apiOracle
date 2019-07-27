@@ -69,6 +69,27 @@ async function comerciais(req, res, next) {
   }
 }
 
+async function comercialControle(req, res, next) {
+  try {
+    const context = {};
+
+    context.controleId = req.params.controleId;
+    const rows = await fornecedores.comercial(context);
+    if (req.params.controleId) {
+      if (rows.length != 0) {
+        res.status(200).json(rows);
+      } else {
+        res.status(404).end();
+      }
+    } else {
+      res.status(200).json(rows);
+    }
+  } catch (err) {
+    next(err);
+  }
+}
+
 module.exports.comerciais = comerciais;
 module.exports.comercial = comercial;
+module.exports.comercialControle = comercialControle;
 module.exports.get = get;
