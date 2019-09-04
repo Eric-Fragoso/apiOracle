@@ -72,7 +72,7 @@ async function comerciais(req, res, next) {
 async function comercialControle(req, res, next) {
   try {
     const context = {};
-
+    console.log(context);
     context.fornecedorId = req.params.fornecedorId;
     context.controleId = req.params.controleId;
     const rows = await fornecedores.comercialControle(context);

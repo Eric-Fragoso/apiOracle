@@ -68,7 +68,9 @@ async function comercialControle(context) {
     `;
   }
 
+  
   const result = await database.simpleExecute(query, binds);
+  console.log(result);
   return result.rows;
 }
  
