@@ -54,7 +54,6 @@ async function importa(req, res, next) {
     context.id = req.params.id;
     context.ano = "20" + req.params.ano;
     context.cultura = req.params.cultura+req.params.ano ;
-    console.log("no controller", context);
     const rows = await controles.importa(context);
     if (req.params.id) {
       if (rows.length != 0) {

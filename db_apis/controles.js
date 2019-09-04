@@ -58,7 +58,6 @@ async function importa(context) {
   
   let query = baseQuery;
   const binds = {};
-  console.log("na api", context);
    if (context.id) {
     binds.CONTROLE = context.id;
     binds.ANO = context.ano;
@@ -84,9 +83,7 @@ async function importa(context) {
     
       
   }
-  console.log(query, binds);
   const result = await database.simpleExecute(query, binds);
-  console.log(result.rows);
   return result.rows;
 }
 
@@ -180,7 +177,6 @@ async function exibeemb(context) {
   }
 
   const result = await database.simpleExecute(query, binds);
-  console.log(result);
   return result.rows;
 }
 
@@ -222,7 +218,6 @@ async function exibeexp(context) {
   }
 
   const result = await database.simpleExecute(query, binds);
-  console.log(result);
   return result.rows;
 }
 
@@ -305,7 +300,6 @@ async function acompanhamentoControle(context) {
    if (context.id) {
     binds.CONTROLE = context.id;
     binds.SAFRA = context.cultura;
-    console.log(context.cultura, context.ano);
 
     query = `\n select d.SAFRA,
     d.CONTROLE,
