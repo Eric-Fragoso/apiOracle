@@ -75,7 +75,7 @@ async function exibesel(req, res, next) {
     console.log("rodando exibesel");
     //context.id = parseInt(req.params.id, 10);
     context.id = req.params.id;
-    context.ano = " 20" + req.params.ano;
+    context.ano = "20" + req.params.ano;
     context.cultura = req.params.cultura+req.params.ano ;
     const rows = await controles.exibesel(context);
     if (req.params.id) {
@@ -98,7 +98,7 @@ async function exibeemb(req, res, next) {
     console.log("rodando exibeemb");
     //context.id = parseInt(req.params.id, 10);
     context.id = req.params.id;
-    context.ano = " 20" + req.params.ano;
+    context.ano = "20" + req.params.ano;
     context.cultura = req.params.cultura+req.params.ano ;
     const rows = await controles.exibeemb(context);
     if (req.params.id) {
