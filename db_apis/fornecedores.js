@@ -10,16 +10,13 @@ async function find(context) {
   let query = baseQuery;
   const binds = {};
  
-  console.log(context);
   if (context.id) {
     binds.FORNECEDOR = context.id;
  
     query += `\n where COD_FORNECEDOR = :FORNECEDOR`;
   }
   
-  console.log(query);
   const result = await database.simpleExecute(query, binds);
- console.log(result.rows);
   return result.rows;
 }
 
@@ -36,7 +33,6 @@ async function comerciais(context) {
   }
 
   const result = await database.simpleExecute(query, binds);
-  console.log(result.rows);
   return result.rows;
 }
 
