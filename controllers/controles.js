@@ -96,7 +96,7 @@ async function exibesel(req, res, next) {
 async function exibeemb(req, res, next) {
   try {
     const context = {};
-    console.log("rodando exibesel");
+    console.log("rodando exibeemb");
     //context.id = parseInt(req.params.id, 10);
     context.id = req.params.id;
     context.ano = " 20" + req.params.ano;
