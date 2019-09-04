@@ -119,8 +119,9 @@ async function exibeexp(req, res, next) {
   try {
     const context = {};
     //context.id = parseInt(req.params.id, 10);
+    console.log("Executndo exibeexp")
     context.id = req.params.id;
-    context.ano = " 20" + req.params.ano;
+    context.ano = "20" + req.params.ano;
     context.cultura = req.params.cultura+req.params.ano ;
     const rows = await controles.exibeexp(context);
     if (req.params.id) {

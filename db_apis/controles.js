@@ -185,6 +185,7 @@ async function exibeexp(context) {
   let query = baseQuery;
   const binds = {};
  
+  console.log(context);
    if (context.id) {
     binds.CONTROLE = context.id;
  //   binds.ANO = context.ano;
