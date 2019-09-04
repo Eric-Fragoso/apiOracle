@@ -187,7 +187,7 @@ async function exibeexp(context) {
  
   console.log(context);
    if (context.id) {
-    binds.CONTROLE = context.id;
+    binds.CONTROLE = parseInt(context.id);
  //   binds.ANO = context.ano;
    // binds.CULTURA = context.cultura;
     query = `\n select vc.CONTROLE,
@@ -201,7 +201,7 @@ async function exibeexp(context) {
               vc.CAIXA,
               sum(vc.QTD_CAIXA) as QTD_CAIXA,
               sum(vc.PESO_CX) as KG
-          from mgagr.agr_bi_visaocomercial_dq vc 
+          from mgagr.agr_bi_visaocomercial_dq vc where vc.CONTROLE = :CONTROLE
           group by
               vc.CONTROLE,
               vc.MERCADO,
@@ -217,7 +217,7 @@ async function exibeexp(context) {
       
   }
 
-  const result = await database.simpleExecute(query);
+  const result = await database.simpleExecute(query, binds);
 
   console.log(result);
   return result.rows;
