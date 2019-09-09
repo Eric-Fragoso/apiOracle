@@ -113,14 +113,12 @@ async function exibesel(context) {
 
     from mgagr.agr_bi_visaoprodutivaph_dq vp
     where vp.PROCESSO in (2,4) AND vp.CONTROLE = :CONTROLE AND vp.ANO = :ANO AND vp.SAFRA = :CULTURA
-	AND (
-		( t.PROCESSO = 2 and
-                 upper(t.MERCADO) not like '%REFUGO%'
+	AND (( vp.PROCESSO = 2 and upper(vp.MERCADO) not like '%REFUGO%'
 	        )
                 OR
-		( t.PROCESSO = 4 and
-		  upper(t.MERCADO) like '%REFUGO%' and
-		  upper(t.MERCADO) like '%SELE%' 		
+		( vp.PROCESSO = 4 and
+		  upper(vp.MERCADO) like '%REFUGO%' and
+		  upper(vp.MERCADO) like '%SELE%' 		
 		)
 	   )	 
     group by
