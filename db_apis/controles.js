@@ -107,13 +107,15 @@ async function exibesel(context) {
              else 0 end)as VOLUME_KG_MI,
     sum(case when (vp.PROCESSO = 2 and vp.MERCADO not like 'M.I%' )then vp.PESO 
              else 0 end)as VOLUME_KG_ME,
-    sum(case when (vp.PROCESSO = 4 and upper(vp.MERCADO) not like '%SELE%' ) then vp.PESO 
+    sum(case when (vp.PROCESSO = 4 and upper(vp.MERCADO)  like '%REFUGO%' ) then vp.PESO 
              else 0 end) as VOLUME_KG_REFUGO         
                                                                                                                       
 
     from mgagr.agr_bi_visaoprodutivaph_dq vp
     where vp.PROCESSO in (2,4) AND vp.CONTROLE = :CONTROLE AND vp.ANO = :ANO AND vp.SAFRA = :CULTURA
-	AND (( vp.PROCESSO = 2 and upper(vp.MERCADO) not like '%REFUGO%'
+	AND (
+		( vp.PROCESSO = 2 and
+                 upper(vp.MERCADO) not like '%REFUGO%'
 	        )
                 OR
 		( vp.PROCESSO = 4 and
@@ -200,27 +202,33 @@ async function exibeexp(context) {
  //   binds.ANO = context.ano;
    // binds.CULTURA = context.cultura;
     query = `\n select vc.CONTROLE,
-              vc.MERCADO,
-              vc.CONTAINER,
-              vc.DATA_EMBARQUE,
-              decode(upper(substr(vc.SAFRA,1,1)),'M','Manga'
-                                              ,'U','Uva'
-                                              ,'C','Cacau','Outra') as CULTURA,
-              vc.VARIEDADE,
-              vc.CAIXA,
-              sum(vc.QTD_CAIXA) as QTD_CAIXA,
-              sum(vc.PESO_CX) as KG
-          from mgagr.agr_bi_visaocomercial_dq vc where vc.CONTROLE = :CONTROLE
-          group by
-              vc.CONTROLE,
-              vc.MERCADO,
-              vc.CONTAINER,
-              vc.DATA_EMBARQUE,
-              decode(upper(substr(vc.SAFRA,1,1)),'M','Manga'
-                                              ,'U','Uva'
-                                              ,'C','Cacau','Outra'),
-              vc.VARIEDADE,
-              vc.CAIXA
+    vc.MERCADO,
+    vc.COD_CLIENTE,
+    vc.CONTAINER,
+    vc.DATA_EMBARQUE,
+    decode(upper(substr(vc.SAFRA,1,1)),'M','Manga'
+                                    ,'U','Uva'
+                                    ,'C','Cacau','Outra') as CULTURA,
+    vc.VARIEDADE,
+    vc.CALIBRE,
+    vc.TIPO_CX,
+    vc.CAIXA,
+    sum(vc.QTD_CAIXA) as QTD_CAIXA,
+    sum(vc.PESO_CX) as KG
+from mgagr.agr_bi_visaocomercial_dq vc where vc.CONTROLE = :CONTROLE
+group by
+    vc.CONTROLE,
+    vc.MERCADO,
+    vc.COD_CLIENTE,
+    vc.CONTAINER,
+    vc.DATA_EMBARQUE,
+    decode(upper(substr(vc.SAFRA,1,1)),'M','Manga'
+                                    ,'U','Uva'
+                                    ,'C','Cacau','Outra'),
+    vc.VARIEDADE,
+    vc.CALIBRE,
+    vc.TIPO_CX,
+    vc.CAIXA
           `; 
         
       
