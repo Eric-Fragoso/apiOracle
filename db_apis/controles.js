@@ -205,6 +205,7 @@ async function exibeexp(context) {
     vc.MERCADO,
     vc.COD_CLIENTE,
     vc.CONTAINER,
+    vc.COD_FORNECEDOR as COD_FORNECEDOR,
     vc.DATA_EMBARQUE,
     decode(upper(substr(vc.SAFRA,1,1)),'M','Manga'
                                     ,'U','Uva'
@@ -221,6 +222,7 @@ group by
     vc.MERCADO,
     vc.COD_CLIENTE,
     vc.CONTAINER,
+    vc.COD_FORNECEDOR,
     vc.DATA_EMBARQUE,
     decode(upper(substr(vc.SAFRA,1,1)),'M','Manga'
                                     ,'U','Uva'
