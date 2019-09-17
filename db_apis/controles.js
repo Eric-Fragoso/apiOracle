@@ -163,7 +163,7 @@ async function exibeemb(context) {
       sum(vp.PESO) as VOLUME
                                                                                                                         
   from mgagr.agr_bi_visaoprodutivaph_dq vp
-  where vp.CONTROLE = :CONTROLE AND vp.SAFRA = :CULTURA
+  where vp.CONTROLE = :CONTROLE AND vp.SAFRA = :CULTURA AND  vp.ANO = :ANO
         and(
             (vp.PROCESSO = 4 and upper(vp.MERCADO) like '%LINHA%') or
             (vp.PROCESSO = 3)
