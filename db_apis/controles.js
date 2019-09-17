@@ -62,24 +62,21 @@ async function importa(context) {
     binds.CONTROLE = context.id;
     binds.ANO = context.ano;
     binds.CULTURA = context.cultura;
-    query = `\n select vp.COD_FORNECEDOR as COD_FORNECEDOR, vp.ANO as ANO, vp.MES, to_number(to_char(to_date(vp.DATA,'DD/MM/YYYY'),'WW')) as SEMANA,
-      vp.DATA,decode(upper(substr(vp.SAFRA,1,1)),'M','Manga','U','Uva','C','Cacau','Outra') as CULTURA,
-      vp.VARIEDADE, vp.CONTROLE as CONTROLE, vp.SAFRA, sum(vp.PESO) as VOLUME_KG                                                                                                                  
-      from mgagr.agr_bi_visaoprodutivaph_dq vp
-      where vp.PROCESSO = 1 AND vp.CONTROLE = :CONTROLE AND vp.ANO = :ANO AND vp.SAFRA = :CULTURA 
-      group by
-      vp.COD_FORNECEDOR,
-      vp.ANO,
-      vp.MES,
-      to_number(to_char(to_date(vp.DATA,'DD/MM/YYYY'),'WW')),
-      vp.DATA,
-      decode(upper(substr(vp.SAFRA,1,1)),'M','Manga'
-                                      ,'U','Uva'
-                                      ,'C','Cacau','Outra'),
-      vp.VARIEDADE,
-      vp.CONTROLE,
-      vp.SAFRA
-      order by vp.DATA`; 
+    query = `\n select vp.COD_FORNECEDOR as COD_FORNECEDOR, vp.ANO as ANO, vp.MES,
+    decode(upper(substr(vp.SAFRA,1,1)),'M','Manga','U','Uva','C','Cacau','Outra') as CULTURA,
+    vp.VARIEDADE, vp.CONTROLE as CONTROLE, vp.SAFRA, sum(vp.PESO) as VOLUME_KG                                                                                                                  
+    from mgagr.agr_bi_visaoprodutivaph_dq vp
+    where vp.PROCESSO = 1 AND vp.CONTROLE = :CONTROLE AND vp.ANO = :ANO AND vp.SAFRA = :CULTURA 
+    group by
+    vp.COD_FORNECEDOR,
+    vp.ANO,
+    vp.MES,
+    decode(upper(substr(vp.SAFRA,1,1)),'M','Manga'
+                                    ,'U','Uva'
+                                    ,'C','Cacau','Outra'),
+    vp.VARIEDADE,
+    vp.CONTROLE,
+    vp.SAFRA`; 
     
       
   }
@@ -98,44 +95,40 @@ async function exibesel(context) {
     binds.CONTROLE = context.id;
     binds.ANO = context.ano;
     binds.CULTURA = context.cultura;
-    query = `\n select vp.COD_FORNECEDOR as COD_FORNECEDOR, vp.ANO, vp.MES, to_number(to_char(to_date(vp.DATA,'DD/MM/YYYY'),'WW')) as SEMANA,
-    vp.DATA,decode(upper(substr(vp.SAFRA,1,1)),'M','Manga'
-                                     ,'U','Uva'
-                                     ,'C','Cacau','Outra') as CULTURA,
-    vp.VARIEDADE, vp.CONTROLE, vp.MERCADO, vp.CALIBRE,
-    sum(case when (vp.PROCESSO = 2 and vp.MERCADO like 'M.I%' )then vp.PESO 
-             else 0 end)as VOLUME_KG_MI,
-    sum(case when (vp.PROCESSO = 2 and vp.MERCADO not like 'M.I%' )then vp.PESO 
-             else 0 end)as VOLUME_KG_ME,
-    sum(case when (vp.PROCESSO = 4 and upper(vp.MERCADO)  like '%REFUGO%' ) then vp.PESO 
-             else 0 end) as VOLUME_KG_REFUGO         
-                                                                                                                      
-
-    from mgagr.agr_bi_visaoprodutivaph_dq vp
-    where vp.PROCESSO in (2,4) AND vp.CONTROLE = :CONTROLE AND vp.ANO = :ANO AND vp.SAFRA = :CULTURA
-	AND (
-		( vp.PROCESSO = 2 and
-                 upper(vp.MERCADO) not like '%REFUGO%'
-	        )
-                OR
-		( vp.PROCESSO = 4 and
-		  upper(vp.MERCADO) like '%REFUGO%' and
-		  upper(vp.MERCADO) like '%SELE%' 		
-		)
-	   )	 
-    group by
-        vp.COD_FORNECEDOR,
-        vp.ANO,
-        vp.MES,
-        to_number(to_char(to_date(vp.DATA,'DD/MM/YYYY'),'WW')),
-        vp.DATA,
-        decode(upper(substr(vp.SAFRA,1,1)),'M','Manga'
-                                        ,'U','Uva'
-                                        ,'C','Cacau','Outra'),
-        vp.VARIEDADE,
-        vp.MERCADO,
-        vp.CALIBRE,
-        vp.CONTROLE`; 
+    query = `\n select vp.COD_FORNECEDOR as COD_FORNECEDOR, vp.ANO, vp.MES,
+    decode(upper(substr(vp.SAFRA,1,1)),'M','Manga'
+                                      ,'U','Uva'
+                                      ,'C','Cacau','Outra') as CULTURA,
+     vp.VARIEDADE, vp.CONTROLE, 
+     sum(case when (vp.PROCESSO = 2 and vp.MERCADO like 'M.I%' )then vp.PESO 
+              else 0 end)as VOLUME_KG_MI,
+     sum(case when (vp.PROCESSO = 2 and vp.MERCADO not like 'M.I%' )then vp.PESO 
+              else 0 end)as VOLUME_KG_ME,
+     sum(case when (vp.PROCESSO = 4 and upper(vp.MERCADO)  like '%REFUGO%' ) then vp.PESO 
+              else 0 end) as VOLUME_KG_REFUGO         
+                                                                                                                       
+ 
+     from mgagr.agr_bi_visaoprodutivaph_dq vp
+   where vp.PROCESSO in (2,4) AND vp.CONTROLE = :CONTROLE AND vp.ANO = :ANO AND vp.SAFRA = :CULTURA
+   AND (
+     ( vp.PROCESSO = 2 and
+                  upper(vp.MERCADO) not like '%REFUGO%'
+           )
+                 OR
+     ( vp.PROCESSO = 4 and
+       upper(vp.MERCADO) like '%REFUGO%' and
+       upper(vp.MERCADO) like '%SELE%'     
+     )
+      )   
+     group by
+         vp.COD_FORNECEDOR,
+         vp.ANO,
+         vp.MES,              
+         decode(upper(substr(vp.SAFRA,1,1)),'M','Manga'
+                                         ,'U','Uva'
+                                         ,'C','Cacau','Outra'),
+         vp.VARIEDADE,
+         vp.CONTROLE`; 
         
       
   }
@@ -155,32 +148,29 @@ async function exibeemb(context) {
     binds.ANO = context.ano;
     binds.CULTURA = context.cultura;
     query = `\n select vp.COD_FORNECEDOR as COD_FORNECEDOR, vp.ANO,vp.MES,
-              to_number(to_char(to_date(vp.DATA,'DD/MM/YYYY'),'WW')) as SEMANA,
-              vp.DATA,decode(upper(substr(vp.SAFRA,1,1)),'M','Manga'
-                                              ,'U','Uva'
-                                              ,'C','Cacau','Outra') as CULTURA  ,
-              vp.VARIEDADE, vp.CONTROLE, vp.CALIBRE,
-              sum(case when (vp.PROCESSO = 3 and vp.MERCADO like 'M.I%' )then vp.PESO 
-                      else 0 end)as VOLUME_KG_MI,
-              sum(case when (vp.PROCESSO = 3 and vp.MERCADO not like 'M.I%' )then vp.PESO 
-                      else 0 end)as VOLUME_KG_ME,
-              sum(case when (vp.PROCESSO = 4 and upper(vp.MERCADO) not like '%EMB%' ) then vp.PESO 
-                      else 0 end) as VOLUME_KG_REFUGO         
-                                                                                                                                
-          from mgagr.agr_bi_visaoprodutivaph_dq vp
-          where vp.PROCESSO in (3,4) AND vp.CONTROLE = :CONTROLE AND vp.ANO = :ANO AND vp.SAFRA = :CULTURA
-          group by
-              vp.COD_FORNECEDOR,
-              vp.ANO,
-              vp.MES,
-              to_number(to_char(to_date(vp.DATA,'DD/MM/YYYY'),'WW')),
-              vp.DATA,
-              decode(upper(substr(vp.SAFRA,1,1)),'M','Manga'
-                                              ,'U','Uva'
-                                              ,'C','Cacau','Outra'),
-              vp.VARIEDADE,
-              vp.CALIBRE,
-              vp.CONTROLE
+
+    decode(upper(substr(vp.SAFRA,1,1)),'M','Manga'
+                                      ,'U','Uva'
+                                      ,'C','Cacau','Outra') as CULTURA  ,
+      vp.VARIEDADE, vp.CONTROLE, vp.MERCADO,
+      sum(vp.PESO) as VOLUME
+                                                                                                                        
+  from mgagr.agr_bi_visaoprodutivaph_dq vp
+  where vp.CONTROLE = :CONTROLE AND vp.SAFRA = :CULTURA
+        and(
+            (vp.PROCESSO = 4 and upper(vp.MERCADO) like '%LINHA%') or
+            (vp.PROCESSO = 3)
+           )
+  group by
+      vp.COD_FORNECEDOR,
+      vp.ANO,
+      vp.MES,
+      decode(upper(substr(vp.SAFRA,1,1)),'M','Manga'
+                                      ,'U','Uva'
+                                      ,'C','Cacau','Outra'),
+      vp.VARIEDADE,
+      vp.MERCADO,
+      vp.CONTROLE
           `; 
         
       
@@ -203,34 +193,24 @@ async function exibeexp(context) {
    // binds.CULTURA = context.cultura;
     query = `\n select vc.CONTROLE,
     vc.MERCADO,
-    vc.COD_CLIENTE,
     vc.CONTAINER,
-    vc.COD_FORNECEDOR as COD_FORNECEDOR,
     vc.DATA_EMBARQUE,
     decode(upper(substr(vc.SAFRA,1,1)),'M','Manga'
                                     ,'U','Uva'
                                     ,'C','Cacau','Outra') as CULTURA,
     vc.VARIEDADE,
-    vc.CALIBRE,
-    vc.TIPO_CX,
-    vc.CAIXA,
     sum(vc.QTD_CAIXA) as QTD_CAIXA,
     sum(vc.PESO_CX) as KG
 from mgagr.agr_bi_visaocomercial_dq vc where vc.CONTROLE = :CONTROLE
 group by
     vc.CONTROLE,
     vc.MERCADO,
-    vc.COD_CLIENTE,
     vc.CONTAINER,
-    vc.COD_FORNECEDOR,
     vc.DATA_EMBARQUE,
     decode(upper(substr(vc.SAFRA,1,1)),'M','Manga'
                                     ,'U','Uva'
                                     ,'C','Cacau','Outra'),
-    vc.VARIEDADE,
-    vc.CALIBRE,
-    vc.TIPO_CX,
-    vc.CAIXA
+    vc.VARIEDADE
           `; 
         
       
