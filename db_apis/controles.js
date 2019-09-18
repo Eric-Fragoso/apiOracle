@@ -154,7 +154,7 @@ async function exibeemb(context) {
     binds.CONTROLE = context.id;
     binds.ANO = context.ano;
     binds.CULTURA = context.cultura;
-    query = `\n select vp.COD_FORNECEDOR as COD_FORNECEDOR, vp.ANO,vp.MES,
+    query = `\n select vp.COD_FORNECEDOR as COD_FORNECEDOR, vp.ANO,
 
     decode(upper(substr(vp.SAFRA,1,1)),'M','Manga'
                                       ,'U','Uva'
@@ -171,7 +171,6 @@ async function exibeemb(context) {
   group by
       vp.COD_FORNECEDOR,
       vp.ANO,
-      vp.MES,
       decode(upper(substr(vp.SAFRA,1,1)),'M','Manga'
                                       ,'U','Uva'
                                       ,'C','Cacau','Outra'),
