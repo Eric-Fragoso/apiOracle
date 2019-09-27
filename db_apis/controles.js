@@ -309,21 +309,76 @@ async function acompanhamentoControle(context) {
     binds.CONTROLE = context.id;
     binds.SAFRA = context.cultura;
 
-    query = `\n select d.SAFRA,
-    d.CONTROLE,
-    rc.CON_DT_COLHEITA as DATA_CONTROLE,
-    round(sum(case when(d.COD_PROCESSO = 1) then d.PESO else 0 end),2) as RECEPCAO,
-    round(sum(case when(d.COD_PROCESSO in (3.1,3.2)) then d.PESO else 0 end),2) as SELECAO,         
-    round(sum(case when(d.COD_PROCESSO in (4.1,4.12,4.21,4.24)) then d.PESO else 0 end),2) as EMBALAMENTO,                  
-    round(sum(case when(d.COD_PROCESSO = 6) then d.PESO else 0 end),2) EXPEDICAO            
-    from mgagr.agr_vw_saldosph_dq d
-    inner join mgagr.agr_vw_resumocontrole_dq rc
-          on(rc.compa_in_nrocontrole = d.controle) and(rc.safra_st_codigo = :SAFRA)
-    where d.COD_PROCESSO in (1, 3.1, 3.2, 4.1, 4.12, 4.21, 4.24, 6) and d.CONTROLE = :CONTROLE and d.SAFRA = :SAFRA
-    group by
-    d.SAFRA,
-    d.CONTROLE,
-    rc.CON_DT_COLHEITA`;   
+    query = `\n select *
+    from (
+          select  
+                'RECEPÇÃO' as ETAPA,
+                vp.CONTROLE as CONTROLE, 
+                vp.SAFRA, 
+                sum(vp.PESO) as PESO                                                                                                                  
+                
+                from mgcli.cli_dw_visaoprodutivaph_dq vp
+                where vp.PROCESSO = 1 and d.CONTROLE = :CONTROLE and d.SAFRA = :SAFRA
+                group by
+                vp.CONTROLE,
+                vp.SAFRA
+                
+          UNION ALL
+    
+          select 'SELEÇÃO' as ETAPA, 
+                 vp.CONTROLE, 
+                 vp.SAFRA,
+                 sum(vp.peso) as PESO
+                                                                                                                                
+    
+              from mgcli.cli_dw_visaoprodutivaph_dq vp
+            where vp.PROCESSO in (2,4) and d.CONTROLE = :CONTROLE and d.SAFRA = :SAFRA
+            AND (
+              ( vp.PROCESSO = 2 and
+                           upper(vp.MERCADO) not like '%REFUGO%'
+                    )
+                          OR
+              ( vp.PROCESSO = 4 and
+                upper(vp.MERCADO) like '%REFUGO%' and
+                upper(vp.MERCADO) like '%SELE%'     
+              )
+               )   
+              group by
+                  vp.CONTROLE,
+                  vp.SAFRA
+    
+    
+    
+          UNION ALL
+    
+          select 
+                'EMBALAGEM' as ETAPA, 
+                        vp.CONTROLE,               
+                        vp.SAFRA,
+                        sum(vp.PESO) as PESO
+                                                                                                                                          
+                    from mgcli.cli_dw_visaoprodutivaph_dq vp
+                    where (
+                              (vp.PROCESSO = 4 and upper(vp.MERCADO) like '%LINHA%') or
+                              (vp.PROCESSO = 3)
+                             ) and d.CONTROLE = :CONTROLE and d.SAFRA = :SAFRA
+                    group by
+                        vp.CONTROLE,
+                        vp.SAFRA
+    
+    
+          UNION ALL
+    
+          select 
+                   'EXEPDIÇÃO' as ETAPA,
+                        vc.CONTROLE,
+                        vc.SAFRA,
+                        sum(vc.PESO_CX) as PESO
+                    from mgagr.agr_bi_visaocomercial_dq vc where d.CONTROLE = :CONTROLE and d.SAFRA = :SAFRA
+                    group by
+                        vc.CONTROLE,
+                        vc.SAFRA
+    )`;   
   }
 
   const result = await database.simpleExecute(query, binds);
