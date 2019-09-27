@@ -318,7 +318,7 @@ async function acompanhamentoControle(context) {
                 sum(vp.PESO) as PESO                                                                                                                  
                 
                 from mgcli.cli_dw_visaoprodutivaph_dq vp
-                where vp.PROCESSO = 1 and d.CONTROLE = :CONTROLE and d.SAFRA = :SAFRA
+                where vp.PROCESSO = 1 and vp.CONTROLE = :CONTROLE and vp.SAFRA = :SAFRA
                 group by
                 vp.CONTROLE,
                 vp.SAFRA
@@ -332,7 +332,7 @@ async function acompanhamentoControle(context) {
                                                                                                                                 
     
               from mgcli.cli_dw_visaoprodutivaph_dq vp
-            where vp.PROCESSO in (2,4) and d.CONTROLE = :CONTROLE and d.SAFRA = :SAFRA
+            where vp.PROCESSO in (2,4) and vp.CONTROLE = :CONTROLE and vp.SAFRA = :SAFRA
             AND (
               ( vp.PROCESSO = 2 and
                            upper(vp.MERCADO) not like '%REFUGO%'
@@ -361,7 +361,7 @@ async function acompanhamentoControle(context) {
                     where (
                               (vp.PROCESSO = 4 and upper(vp.MERCADO) like '%LINHA%') or
                               (vp.PROCESSO = 3)
-                             ) and d.CONTROLE = :CONTROLE and d.SAFRA = :SAFRA
+                             ) and vp.CONTROLE = :CONTROLE and vp.SAFRA = :SAFRA
                     group by
                         vp.CONTROLE,
                         vp.SAFRA
@@ -374,7 +374,7 @@ async function acompanhamentoControle(context) {
                         vc.CONTROLE,
                         vc.SAFRA,
                         sum(vc.PESO_CX) as PESO
-                    from mgagr.agr_bi_visaocomercial_dq vc where d.CONTROLE = :CONTROLE and d.SAFRA = :SAFRA
+                    from mgagr.agr_bi_visaocomercial_dq vc where vc.CONTROLE = :CONTROLE and vc.SAFRA = :SAFRA
                     group by
                         vc.CONTROLE,
                         vc.SAFRA
