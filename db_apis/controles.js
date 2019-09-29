@@ -201,7 +201,7 @@ async function exibeexp(context) {
     query = `\n select vc.CONTROLE,
     vc.MERCADO,
     vc.CONTAINER,
-    vp.COD_FORNECEDOR as COD_FORNECEDOR,
+    vc.COD_FORNECEDOR as COD_FORNECEDOR,
     vc.DATA_EMBARQUE,
     decode(upper(substr(vc.SAFRA,1,1)),'M','Manga'
                                     ,'U','Uva'
@@ -213,7 +213,7 @@ from mgagr.agr_bi_visaocomercial_dq vc where vc.CONTROLE = :CONTROLE
 group by
     vc.CONTROLE,
     vc.MERCADO,
-    vp.COD_FORNECEDOR,
+    vc.COD_FORNECEDOR,
     vc.CONTAINER,
     vc.DATA_EMBARQUE,
     decode(upper(substr(vc.SAFRA,1,1)),'M','Manga'
