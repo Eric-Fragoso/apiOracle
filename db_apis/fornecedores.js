@@ -120,8 +120,9 @@ async function comercialControle(context) {
     d.COD_MERCADO,
     d.MERCADO,
     d.PAIS_SIGLA,
-    d.PAIS
-from mgagr.agr_bi_visaocomercial_dq d where COD_FORNECEDOR = :FORNECEDOR and CONTROLE = :CONTROLE
+    d.PAIS,
+    decode(d.cambio_status,'PR','CAMBIO PREVISTO','CAMBIO FINAL') as STATUS_CAMBIO
+from mgcli.cli_dw_visaocomercial_dq d where COD_FORNECEDOR = :FORNECEDOR and CONTROLE = :CONTROLE
 group by
 d.TIPO_LANCAMENTO,
     d.SAFRA,
@@ -156,7 +157,8 @@ d.TIPO_LANCAMENTO,
     d.COD_MERCADO,
     d.MERCADO,
     d.PAIS_SIGLA,
-    d.PAIS
+    d.PAIS,
+    d.STATUS_CAMBIO
     `;
   }
 
