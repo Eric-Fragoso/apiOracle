@@ -121,7 +121,7 @@ async function comercialControle(context) {
     d.MERCADO,
     d.PAIS_SIGLA,
     d.PAIS,
-    decode(d.cambio_status,'PR','CAMBIO PREVISTO','CAMBIO FINAL') as STATUS_CAMBIO
+    decode(d.cambio_status,'PR','CAMBIO PREVISTO','CAMBIO FINAL') as CAMBIO_STATUS
 from mgcli.cli_dw_visaocomercial_dq d where COD_FORNECEDOR = :FORNECEDOR and CONTROLE = :CONTROLE
 group by
 d.TIPO_LANCAMENTO,
@@ -158,7 +158,7 @@ d.TIPO_LANCAMENTO,
     d.MERCADO,
     d.PAIS_SIGLA,
     d.PAIS,
-    d.STATUS_CAMBIO
+    d.CAMBIO_STATUS
     `;
   }
 
