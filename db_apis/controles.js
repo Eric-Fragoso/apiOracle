@@ -212,7 +212,7 @@ async function exibeexp(context) {
     sum(vc.PESO_CX) as KG
 from mgagr.agr_bi_visaocomercial_dq vc 
 
-where --vc.CONTROLE = :CONTROLE and      
+where vc.CONTROLE = :CONTROLE and      
       extract(year from vc.DATA_CHEGADA) = :ANO
 
 group by
