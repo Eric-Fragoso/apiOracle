@@ -195,9 +195,10 @@ async function exibeexp(context) {
   console.log(context);
    if (context.id) {
     binds.CONTROLE = parseInt(context.id);
-    console.log(binds.CONTROLE, binds.ANO, binds.CULTURA);
+   
     binds.ANO = context.ano;
     binds.CULTURA = context.cultura;
+    console.log(binds.CONTROLE, binds.ANO, binds.CULTURA);
     query = `\n select vc.CONTROLE,
     vc.MERCADO,
     vc.CONTAINER,
