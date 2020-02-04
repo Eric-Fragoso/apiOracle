@@ -211,7 +211,7 @@ async function exibeexp(context) {
     vc.VARIEDADE,
     sum(vc.QTD_CAIXA) as QTD_CAIXA,
     sum(vc.PESO_CX) as KG
-from mgagr.agr_bi_visaocomercial_dq vc 
+from mgcli.cli_dw_visaocomercial_dq vc 
 
 where vc.CONTROLE = :CONTROLE 
 
