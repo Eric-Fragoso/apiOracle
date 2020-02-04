@@ -204,19 +204,21 @@ async function exibeexp(context) {
     vc.CONTAINER,
     vc.COD_FORNECEDOR as COD_FORNECEDOR,
     vc.DATA_EMBARQUE,
+    vc.ANO,
     decode(upper(substr(vc.SAFRA,1,1)),'M','Manga'
                                     ,'U','Uva'
                                     ,'C','Cacau','Outra') as CULTURA,
     vc.VARIEDADE,
     sum(vc.QTD_CAIXA) as QTD_CAIXA,
     sum(vc.PESO_CX) as KG
-from mgagr.agr_bi_visaocomercial_dq vc where vc.CONTROLE = :CONTROLE AND CULTURA = :CULTURA
+from mgagr.agr_bi_visaocomercial_dq vc where vc.CONTROLE = :CONTROLE AND vc.ANO = :ANO
 group by
     vc.CONTROLE,
     vc.MERCADO,
     vc.COD_FORNECEDOR,
     vc.CONTAINER,
     vc.DATA_EMBARQUE,
+    vc.ANO,
     decode(upper(substr(vc.SAFRA,1,1)),'M','Manga'
                                     ,'U','Uva'
                                     ,'C','Cacau','Outra'),
