@@ -204,7 +204,7 @@ async function exibeexp(context) {
     vc.CONTAINER,
     vc.COD_FORNECEDOR as COD_FORNECEDOR,
     vc.DATA_EMBARQUE,
-    vc.ANO_EMBARQUE,
+    vc.ano_embarque,
     decode(upper(substr(vc.SAFRA,1,1)),'M','Manga'
                                     ,'U','Uva'
                                     ,'C','Cacau','Outra') as CULTURA,
@@ -221,7 +221,7 @@ group by
     vc.COD_FORNECEDOR,
     vc.CONTAINER,
     vc.DATA_EMBARQUE,
-    vc.ANO_EMBARQUE,
+    vc.ano_embarque,
     decode(upper(substr(vc.SAFRA,1,1)),'M','Manga'
                                     ,'U','Uva'
                                     ,'C','Cacau','Outra'),
