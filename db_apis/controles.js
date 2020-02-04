@@ -213,7 +213,7 @@ async function exibeexp(context) {
 from mgagr.agr_bi_visaocomercial_dq vc 
 
 where vc.CONTROLE = :CONTROLE and      
-      extract(year from vc.DATA_CHEGADA) = :ANO
+vc.ano_embarque = :ANO
 
 group by
     vc.CONTROLE,
