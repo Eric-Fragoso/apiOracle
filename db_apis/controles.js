@@ -204,6 +204,7 @@ async function exibeexp(context) {
     vc.CONTAINER,
     vc.COD_FORNECEDOR as COD_FORNECEDOR,
     vc.DATA_EMBARQUE,
+    vc.ANO_EMBARQUE,
     decode(upper(substr(vc.SAFRA,1,1)),'M','Manga'
                                     ,'U','Uva'
                                     ,'C','Cacau','Outra') as CULTURA,
@@ -213,7 +214,7 @@ async function exibeexp(context) {
 from mgagr.agr_bi_visaocomercial_dq vc 
 
 where vc.CONTROLE = :CONTROLE and      
-vc.ano_embarque = :ANO
+vc.ANO_EMBARQUE = :ANO
 
 group by
     vc.CONTROLE,
@@ -221,6 +222,7 @@ group by
     vc.COD_FORNECEDOR,
     vc.CONTAINER,
     vc.DATA_EMBARQUE,
+    vc.ANO_EMBARQUE,
     decode(upper(substr(vc.SAFRA,1,1)),'M','Manga'
                                     ,'U','Uva'
                                     ,'C','Cacau','Outra'),
