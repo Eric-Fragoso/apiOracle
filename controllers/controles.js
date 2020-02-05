@@ -136,7 +136,7 @@ async function exibeexp(req, res, next) {
       context.cultura = "Cacau"
     };
 
-    context.cultura = req.params.cultura;//+req.params.ano ;
+    //context.cultura = req.params.cultura;//+req.params.ano ;
     const rows = await controles.exibeexp(context);
     if (req.params.id) {
       if (rows.length != 0) {
