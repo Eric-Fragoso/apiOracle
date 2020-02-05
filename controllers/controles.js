@@ -123,18 +123,20 @@ async function exibeexp(req, res, next) {
     context.id = req.params.id;
     context.ano = "20" + req.params.ano;
     
+    
     if(req.params.cultura == "U"){
-      context.cultura == "Uva"
+      context.cultura = "Uva"
     };
 
     if(req.params.cultura == "M"){
-      context.cultura == "Manga"
+      context.cultura = "Manga"
     };
 
     if(req.params.cultura == "C"){
-      context.cultura == "Cacau"
+      context.cultura = "Cacau"
     };
 
+    //context.cultura = req.params.cultura+req.params.ano ;
     const rows = await controles.exibeexp(context);
     if (req.params.id) {
       if (rows.length != 0) {
