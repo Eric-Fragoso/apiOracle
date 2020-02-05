@@ -214,7 +214,7 @@ async function exibeexp(context) {
     sum(vc.PESO_CX) as KG
 from mgcli.cli_dw_visaocomercial_dq vc 
 
-where vc.CONTROLE = :CONTROLE AND vc.ano_embarque = :ANO AND CULTURA = :CULT
+where vc.CONTROLE = :CONTROLE AND vc.ano_embarque = :ANO AND CULTURA = 'M'
 
 group by
     vc.CONTROLE,
