@@ -224,7 +224,7 @@ group by
     vc.ano_embarque,
     decode(upper(substr(vc.SAFRA,1,1)),'M','Manga'
                                     ,'U','Uva'
-                                    ,'C','Cacau','Outra'),
+                                    ,'C','Cacau','Outra') as CULTURA,
     vc.VARIEDADE
           `; 
         
