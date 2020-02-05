@@ -197,7 +197,7 @@ async function exibeexp(context) {
     binds.CONTROLE = parseInt(context.id);
    
     binds.ANO = context.ano;
-    binds.CULT = context.cultura;
+    //binds.CULT = context.cultura;
     console.log(binds.CONTROLE, binds.ANO, binds.CULT);
     console.log(binds);
     query = `\n select vc.CONTROLE,
@@ -214,7 +214,7 @@ async function exibeexp(context) {
     sum(vc.PESO_CX) as KG
 from mgcli.cli_dw_visaocomercial_dq vc 
 
-where vc.CONTROLE = :CONTROLE AND vc.ano_embarque = :ANO AND CULTURA = :CULT
+where vc.CONTROLE = :CONTROLE AND vc.ano_embarque = :ANO 
 
 group by
     vc.CONTROLE,
