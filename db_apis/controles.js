@@ -197,17 +197,17 @@ async function exibeexp(context) {
     binds.CONTROLE = parseInt(context.id);
    
     binds.ANO = context.ano;
-    //binds.CULTURA = context.cultura;
-    console.log(binds.CONTROLE, binds.ANO);//, binds.CULTURA);
+    binds.CULTURA = context.cultura;
+    console.log(binds.CONTROLE, binds.ANO, binds.CULTURA);
     query = `\n select vc.CONTROLE,
     vc.MERCADO,
     vc.CONTAINER,
     vc.COD_FORNECEDOR as COD_FORNECEDOR,
     vc.DATA_EMBARQUE,
     vc.ano_embarque,
-    decode(upper(substr(vc.SAFRA,1,1)),'M','M'
-                                    ,'U','U'
-                                    ,'C','C','Outra') as CULTURA,
+    decode(upper(substr(vc.SAFRA,1,1)),'M','Manga'
+                                    ,'U','Uva'
+                                    ,'C','Cacau','Outra') as CULTURA,
     vc.VARIEDADE,
     sum(vc.QTD_CAIXA) as QTD_CAIXA,
     sum(vc.PESO_CX) as KG
