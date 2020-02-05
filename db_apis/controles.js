@@ -209,13 +209,12 @@ async function exibeexp(context) {
     decode(upper(substr(vc.SAFRA,1,1)),'M','Manga'
                                     ,'U','Uva'
                                     ,'C','Cacau','Outra') as CULTURA,
-    vc.SAFRA,
     vc.VARIEDADE,
     sum(vc.QTD_CAIXA) as QTD_CAIXA,
     sum(vc.PESO_CX) as KG
 from mgcli.cli_dw_visaocomercial_dq vc 
 
-where vc.CONTROLE = :CONTROLE AND vc.ano_embarque = :ANO AND CULTURA = 'MANGA'
+where vc.CONTROLE = :CONTROLE AND vc.ano_embarque = :ANO AND CULTURA = :CULT
 
 group by
     vc.CONTROLE,
@@ -227,7 +226,6 @@ group by
     decode(upper(substr(vc.SAFRA,1,1)),'M','Manga'
                                     ,'U','Uva'
                                     ,'C','Cacau','Outra'),
-    vc.SAFRA,
     vc.VARIEDADE
           `; 
         

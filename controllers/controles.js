@@ -125,15 +125,15 @@ async function exibeexp(req, res, next) {
     
     
     if(req.params.cultura == "U"){
-      context.cultura = "Uva"
+      context.cultura = "UVA"
     };
 
     if(req.params.cultura == "M"){
-      context.cultura = "Manga"
+      context.cultura = "MANGA"
     };
 
     if(req.params.cultura == "C"){
-      context.cultura = "Cacau"
+      context.cultura = "CACAU"
     };
 
     //context.cultura = req.params.cultura;//+req.params.ano ;
