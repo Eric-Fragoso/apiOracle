@@ -209,6 +209,7 @@ async function exibeexp(context) {
     decode(upper(substr(vc.SAFRA,1,1)),'M','Manga'
                                     ,'U','Uva'
                                     ,'C','Cacau','Outra') as CULTURA,
+    vc.SAFRA
     vc.VARIEDADE,
     sum(vc.QTD_CAIXA) as QTD_CAIXA,
     sum(vc.PESO_CX) as KG
@@ -226,6 +227,7 @@ group by
     decode(upper(substr(vc.SAFRA,1,1)),'M','Manga'
                                     ,'U','Uva'
                                     ,'C','Cacau','Outra'),
+    vc.SAFRA,
     vc.VARIEDADE
           `; 
         
